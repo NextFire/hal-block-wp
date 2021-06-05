@@ -6,19 +6,19 @@
   "license": "MIT License",
   "main": "build/index.js",
   "scripts": {
-    "build": "wp-scripts build src/index.js src/script.ts",
-    "format": "wp-scripts format",
-    "lint:css": "wp-scripts lint-style",
-    "lint:js": "wp-scripts lint-js",
-    "start": "wp-scripts start src/index.js src/script.ts",
-    "packages-update": "wp-scripts packages-update"
+    "build": "webpack",
+    "start": "webpack --watch"
   },
   "dependencies": {
     "@wordpress/block-editor": "^6.1.1",
     "@wordpress/blocks": "^9.1.1",
+    "@wordpress/components": "^14.1.1",
     "@wordpress/i18n": "^4.1.1"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^16.1.1"
+    "@wordpress/scripts": "^16.1.1",
+    "ts-loader": "^8.3.0",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^4.7.0"
   }
 }

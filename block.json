@@ -10,7 +10,7 @@
     },
     "textdomain": "hal-block",
     "editorScript": "file:./build/index.js",
-    "script": "file:./build/script.ts.js",
+    "script": "file:./build/script.js",
     "editorStyle": "file:./build/index.css",
     "style": "file:./build/style-index.css"
 }

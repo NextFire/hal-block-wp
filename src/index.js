@@ -17,8 +17,7 @@ import './style.scss';
 /**
  * Internal dependencies
  */
-import Edit from './edit';
-// import save from './save';
+import Edit from './edit.jsx';
 
 /**
  * Every block starts by registering a new block type definition.
@@ -36,9 +35,4 @@ registerBlockType('halb/hal-block', {
      * @see ./edit.js
      */
     edit: Edit,
-
-    /**
-     * @see ./save.js
-     */
-    // save,
 });

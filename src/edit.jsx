@@ -43,11 +43,7 @@ export default function Edit({ attributes, setAttributes }) {
             </p>
             <InspectorControls>
                 <PanelBody title="Filters">
-                    <TextControl
-                        label="Query"
-                        onChange={onChangeQuery}
-                        value={attributes.query}
-                    ></TextControl>
+                    <TextControl label="Query" value={attributes.query} onChange={onChangeQuery}></TextControl>
                 </PanelBody>
             </InspectorControls>
         </>
