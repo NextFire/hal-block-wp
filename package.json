@@ -1,0 +1,24 @@
+{
+  "name": "hal-block",
+  "version": "0.1.0",
+  "description": "HAL (open archive) block for Gutenberg.",
+  "author": "NextFire",
+  "license": "MIT License",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "wp-scripts build src/index.js src/script.ts",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "start": "wp-scripts start src/index.js src/script.ts",
+    "packages-update": "wp-scripts packages-update"
+  },
+  "dependencies": {
+    "@wordpress/block-editor": "^6.1.1",
+    "@wordpress/blocks": "^9.1.1",
+    "@wordpress/i18n": "^4.1.1"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^16.1.1"
+  }
+}

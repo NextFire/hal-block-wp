@@ -1,0 +1,16 @@
+{
+    "apiVersion": 2,
+    "name": "halb/hal-block",
+    "title": "HAL Block",
+    "category": "embed",
+    "icon": "welcome-learn-more",
+    "description": "HAL (open archive) block for Gutenberg.",
+    "supports": {
+        "html": false
+    },
+    "textdomain": "hal-block",
+    "editorScript": "file:./build/index.js",
+    "script": "file:./build/script.ts.js",
+    "editorStyle": "file:./build/index.css",
+    "style": "file:./build/style-index.css"
+}
