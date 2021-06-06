@@ -34,7 +34,7 @@ function halb_render($attributes)
     ob_start()
 ?>
     <div class="wp-block-halb-hal-block">
-        This is <?php echo $attributes['query']; ?>
+        <a href=<?php echo $attributes['query']; ?>><?php echo $attributes['query']; ?></a>
     </div>
 <?php
     return ob_get_clean();

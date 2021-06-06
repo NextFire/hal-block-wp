@@ -1,7 +1,7 @@
 {
     "apiVersion": 2,
     "name": "halb/hal-block",
-    "title": "HAL Block",
+    "title": "HAL",
     "category": "embed",
     "icon": "welcome-learn-more",
     "description": "HAL (open archive) block for Gutenberg.",

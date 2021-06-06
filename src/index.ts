@@ -17,19 +17,18 @@ import './style.scss';
 /**
  * Internal dependencies
  */
-import Edit from './edit.jsx';
+import Edit from './edit';
 
 /**
  * Every block starts by registering a new block type definition.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
+// @ts-ignore
 registerBlockType('halb/hal-block', {
     attributes: {
         query: { type: 'string' },
     },
-
-    example: {},
 
     /**
      * @see ./edit.js

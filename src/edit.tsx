@@ -11,9 +11,13 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
+// @ts-ignore
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 
 import { PanelBody, TextControl } from '@wordpress/components';
+
+import * as React from 'react';
+
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -31,15 +35,16 @@ import './editor.scss';
  *
  * @return {WPElement} Element to render.
  */
+// @ts-ignore
 export default function Edit({ attributes, setAttributes }) {
-    function onChangeQuery(value) {
+    function onChangeQuery(value: any) {
         setAttributes({ query: value });
     }
 
     return (
         <>
             <p {...useBlockProps()}>
-                {__('HAL Block – hello from the editor!', 'hal-block')}
+                {__('HAL – hello from the editor!', 'hal-block')}
             </p>
             <InspectorControls>
                 <PanelBody title="Filters">
