@@ -6,6 +6,9 @@
  */
 
 .wp-block-halb-hal-block {
+    & ul {
+        text-align: justify;
+    }
     & li {
         margin: 20px auto;
     }
