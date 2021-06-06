@@ -1,25 +1,27 @@
-// const HAL_API = 'https://api.archives-ouvertes.fr/search/';
-window.onload = function () {
-    var blocks = document.querySelectorAll('div.wp-block-halb-hal-block');
+import { HAL } from "./hal";
 
-    blocks.forEach(block => {
-        console.log(block);
-        
-        fetch(block.innerHTML)
+window.onload = () => {
+    document.querySelectorAll('div.wp-block-halb-hal-block').forEach(block => {
+        fetch(block.getAttribute('query'))
             .then(response => response.json())
-            .then(data => {
-                constructBlock(block, data.response.docs)
-            })
+            .then(data => block.appendChild(getHALNode(data.response.docs)))
     })
+}
 
-    function constructBlock(block: Element, docs: Array<any>) {
-        block.innerHTML = ''
-        var node = document.createElement("LI");
-        var textnode = document.createTextNode("Water");
-        node.appendChild(textnode);
-        block.appendChild(node);
-        docs.forEach(function (element: any) {
-            console.log(element);
-        });
-    }
+function getHALNode(docs: Array<HAL>) {
+    let node = document.createElement('ul');
+    docs.forEach(doc => {
+        console.log(doc);
+        node.appendChild(getDocListing(doc));
+    });
+    return node;
+}
+
+function getDocListing(doc: HAL) {
+    let li = document.createElement('li');
+    let a = document.createElement('a');
+    li.appendChild(a)
+    a.href = doc.uri_s;
+    a.innerHTML = doc.label_s;
+    return li;
 }

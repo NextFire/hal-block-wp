@@ -6,7 +6,10 @@
  */
 
 .wp-block-halb-hal-block {
-    background-color: #21759b;
-    color: #fff;
-    padding: 2px;
+    & li {
+        margin: 20px auto;
+    }
+    & a:link {
+        text-decoration: none;
+    }
 }

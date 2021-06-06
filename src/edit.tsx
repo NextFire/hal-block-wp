@@ -3,7 +3,7 @@
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
  */
-import { __ } from '@wordpress/i18n';
+// import { __ } from '@wordpress/i18n';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -43,9 +43,9 @@ export default function Edit({ attributes, setAttributes }) {
 
     return (
         <>
-            <p {...useBlockProps()}>
-                {__('HAL – hello from the editor!', 'hal-block')}
-            </p>
+            <div {...useBlockProps()}>
+                <em><a href={attributes.query} target="_blank">HAL publications</a> will appear here.</em>
+            </div>
             <InspectorControls>
                 <PanelBody title="Filters">
                     <TextControl label="Query" value={attributes.query} onChange={onChangeQuery}></TextControl>
