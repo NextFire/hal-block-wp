@@ -6,7 +6,7 @@
   "license": "MIT License",
   "main": "build/index.js",
   "scripts": {
-    "build": "webpack && rm build/*.map",
+    "build": "webpack --mode production",
     "start": "webpack --watch"
   },
   "dependencies": {

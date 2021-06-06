@@ -11,7 +11,6 @@ window.onload = () => {
 function getHALNode(docs: Array<HAL>) {
     let node = document.createElement('ul');
     docs.forEach(doc => {
-        console.log(doc);
         node.appendChild(getDocListing(doc));
     });
     return node;
