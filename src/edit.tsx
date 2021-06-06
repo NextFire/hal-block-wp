@@ -35,12 +35,10 @@ import './editor.scss';
  *
  * @return {WPElement} Element to render.
  */
-// @ts-ignore
-export default function Edit({ attributes, setAttributes }) {
+export default function Edit({ attributes, setAttributes }: any) {
     function onChangeQuery(value: any) {
         setAttributes({ query: value });
     }
-
     return (
         <>
             <div {...useBlockProps()}>
