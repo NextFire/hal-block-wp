@@ -1,4 +1,4 @@
-import { HAL } from "./hal";
+import { HALResponse } from "./hal";
 
 window.onload = () => {
     document.querySelectorAll('div.wp-block-halb-hal-block').forEach(async block => {
@@ -15,7 +15,7 @@ window.onload = () => {
     });
 }
 
-function getHALNode(docs: Array<HAL>) {
+function getHALNode(docs: Array<HALResponse>) {
     let node = document.createElement('ul');
     docs.forEach(doc => {
         node.appendChild(getDocListing(doc));
@@ -23,7 +23,7 @@ function getHALNode(docs: Array<HAL>) {
     return node;
 }
 
-function getDocListing(doc: HAL) {
+function getDocListing(doc: HALResponse) {
     let li = document.createElement('li');
     let a = document.createElement('a');
     li.appendChild(a)

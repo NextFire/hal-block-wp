@@ -16,7 +16,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 
 import * as React from 'react';
 
-import { HALAttributes } from './attributes';
+import { HALBlock } from './hal';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -27,7 +27,7 @@ import { HALAttributes } from './attributes';
  *
  * @return {WPElement} Element to render.
  */
-export default function save({ attributes }: { attributes: HALAttributes }) {
+export default function save({ attributes }: { attributes: HALBlock }) {
     return (
         <div {...useBlockProps.save()} url={buildQuery(attributes)}></div>
     );
@@ -39,7 +39,7 @@ export default function save({ attributes }: { attributes: HALAttributes }) {
 
 const API_HAL = 'https://api.archives-ouvertes.fr/search/';
 
-function buildQuery(attributes: HALAttributes) {
+function buildQuery(attributes: HALBlock) {
     let url = API_HAL;
     // portal or COLLECTION
     url += attributes.portColl + '/';

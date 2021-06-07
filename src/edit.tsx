@@ -18,7 +18,7 @@ import { PanelBody, TextControl, SelectControl, RadioControl } from '@wordpress/
 
 import * as React from 'react';
 
-import { HALAttributes } from './attributes';
+import { HALBlock } from './hal';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -36,12 +36,12 @@ import './editor.scss';
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit({ attributes, setAttributes }: { attributes: HALAttributes; setAttributes: any }) {
+export default function Edit({ attributes, setAttributes }: { attributes: HALBlock; setAttributes: any }) {
     return (
         <>
             {/* Block preview */}
             <div {...useBlockProps()}>
-                <em><a href={attributes.q} target="_blank">HAL publications</a> will appear here.</em>
+                <em>HAL publication will appear here.</em>
             </div>
             {/* Block settings */}
             <InspectorControls>
@@ -63,19 +63,23 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALAtt
                         value={attributes.sortField}
                         options={[
                             { value: '', label: 'Relevance' },
-                            { value: 'ePublicationDate_tdate', label: 'ePublication date' },
-                            { value: 'label_s', label: 'Reference' },
+                            { value: 'auth_sort', label: 'Author' },
+                            { value: 'title_sort', label: 'Reference' },
+                            { value: 'producedDate_tdate', label: 'Publication date' },
+                            { value: 'submittedDate_tdate', label: 'Submission date' },
                             { value: 'docid', label: 'ID' },
                             { value: 'custom', label: 'Custom' },
                         ]}
                         onChange={value => setAttributes({ sortField: value })}
                     />
-                    <TextControl
-                        label="Sort by custom field"
-                        help="@see https://api.archives-ouvertes.fr/docs/search/?schema=fields#fields"
-                        value={attributes.sortField == 'custom' ? attributes.customSortField : ''}
-                        onChange={value => setAttributes({ customSortField: value })}
-                    ></TextControl>
+                    {attributes.sortField == 'custom' &&
+                        <TextControl
+                            label="Sort by custom field"
+                            help="@see https://api.archives-ouvertes.fr/docs/search/?schema=fields#fields"
+                            value={attributes.customSortField}
+                            onChange={value => setAttributes({ customSortField: value })}
+                        ></TextControl>
+                    }
                     <RadioControl
                         label="Order"
                         selected={attributes.desc ? 'yes' : 'no'}
