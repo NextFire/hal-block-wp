@@ -32,7 +32,15 @@
         },
         "desc": {
             "type": "boolean",
-            "default": "true"
+            "default": true
+        },
+        "allDocTypes": {
+            "type": "boolean",
+            "default": true
+        },
+        "docTypes": {
+            "type": "array",
+            "default": []
         },
         "fq": {
             "type": "string",
@@ -40,7 +48,7 @@
         },
         "rows": {
             "type": "number",
-            "default": "30"
+            "default": 30
         }
     }
 }

@@ -3,8 +3,8 @@ const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 module.exports = {
     ...defaultConfig,
     entry: {
-        index: "./src/index.ts",
-        script: "./src/script.ts",
+        index: './src/index.ts',
+        script: './src/script.ts',
     },
     module: {
         ...defaultConfig.module,
@@ -19,6 +19,6 @@ module.exports = {
     },
     resolve: {
         ...defaultConfig.module.resolve,
-        extensions: [".ts", ".tsx"],
+        extensions: ['.ts', '.tsx'],
     },
 };

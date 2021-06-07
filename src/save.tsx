@@ -29,7 +29,7 @@ import { HALBlock } from './hal';
  */
 export default function save({ attributes }: { attributes: HALBlock }) {
     return (
-        <div {...useBlockProps.save()} url={buildQuery(attributes)}></div>
+        <div {...useBlockProps.save()} url={queryBuilder(attributes)}></div>
     );
 }
 
@@ -39,18 +39,27 @@ export default function save({ attributes }: { attributes: HALBlock }) {
 
 const API_HAL = 'https://api.archives-ouvertes.fr/search/';
 
-function buildQuery(attributes: HALBlock) {
+function queryBuilder(attributes: HALBlock) {
     let url = API_HAL;
+
     // portal or COLLECTION
     url += attributes.portColl + '/';
-    // parameters
+
+    // Parameters
+    // query
     url += '?q=' + attributes.q;
-    if (attributes.sortField != '') {
-        url += '&sort=' + (attributes.sortField == 'custom' ? attributes.customSortField : attributes.sortField)
-            + ' ' + (attributes.desc ? 'desc' : 'asc');
-    }
+    // sort if not by relevance
+    if (attributes.sortField) url += '&sort='
+        + (attributes.sortField == 'custom' ? attributes.customSortField : attributes.sortField)
+        + ' ' + (attributes.desc ? 'desc' : 'asc');
+    // filters
     url += '&fq=' + attributes.fq;
+    // number of docs
     url += '&rows=' + attributes.rows;
+    // doctypes
+    if (!attributes.allDocTypes) url += '&docType_s=' + attributes.docTypes.join(' OR ');
+    // include all fields
     url += '&fl=*';
+
     return url;
 }
