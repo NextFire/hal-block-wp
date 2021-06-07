@@ -25,16 +25,6 @@
  */
 function halb_hal_block_block_init()
 {
-    register_block_type_from_metadata(__DIR__, array('render_callback' => 'halb_render'));
+    register_block_type_from_metadata(__DIR__);
 }
 add_action('init', 'halb_hal_block_block_init');
-
-function halb_render($attributes)
-{
-    ob_start()
-?>
-    <div class="wp-block-halb-hal-block" query=<?php echo $attributes['query']; ?>>
-    </div>
-<?php
-    return ob_get_clean();
-}

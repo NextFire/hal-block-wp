@@ -2,9 +2,16 @@ import { HAL } from "./hal";
 
 window.onload = () => {
     document.querySelectorAll('div.wp-block-halb-hal-block').forEach(async block => {
-        let response = await fetch(block.getAttribute('query'));
-        let data = await response.json();
-        block.appendChild(getHALNode(data.response.docs));
+        try {
+            let response = await fetch(block.getAttribute('url'));
+            let data = await response.json();
+            block.appendChild(getHALNode(data.response.docs));
+        } catch (error) {
+            let errorNode = document.createElement('p');
+            errorNode.className = 'hal-error';
+            errorNode.innerHTML = 'An error occured when fetching<br>' + block.getAttribute('url') + '<br><br>' + error;
+            block.appendChild(errorNode)
+        }
     });
 }
 

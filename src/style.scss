@@ -6,13 +6,21 @@
  */
 
 .wp-block-halb-hal-block {
-    & ul {
+    ul {
         text-align: justify;
     }
-    & li {
+
+    li {
         margin: 20px auto;
     }
-    & a:link {
+
+    a:link {
         text-decoration: none;
+    }
+
+    .hal-error {
+        background-color: #21759b;
+        color: #fff;
+        padding: 2px;
     }
 }

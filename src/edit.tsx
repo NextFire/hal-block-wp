@@ -11,13 +11,14 @@
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
-// @ts-ignore
+// @ts-ignore WP TS types def is broken
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 
 import { PanelBody, TextControl } from '@wordpress/components';
 
 import * as React from 'react';
 
+import { HALAttributes } from './attributes';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -35,18 +36,28 @@ import './editor.scss';
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit({ attributes, setAttributes }: any) {
-    function onChangeQuery(value: any) {
-        setAttributes({ query: value });
-    }
+export default function Edit({ attributes, setAttributes }: { attributes: HALAttributes; setAttributes: any }) {
     return (
         <>
+            {/* Block preview */}
             <div {...useBlockProps()}>
                 <em><a href={attributes.query} target="_blank">HAL publications</a> will appear here.</em>
             </div>
+            {/* Block settings */}
             <InspectorControls>
                 <PanelBody title="Filters">
-                    <TextControl label="Query" value={attributes.query} onChange={onChangeQuery}></TextControl>
+                    <TextControl
+                        label="portal or COLLECTION"
+                        help="@see https://api.archives-ouvertes.fr/docs/search/?#endpoints"
+                        value={attributes.portColl}
+                        onChange={value => setAttributes({ portColl: value })}
+                    ></TextControl>
+                    <TextControl
+                        label="Query"
+                        help="@see https://api.archives-ouvertes.fr/docs/search/?#q"
+                        value={attributes.query}
+                        onChange={value => setAttributes({ query: value })}
+                    ></TextControl>
                 </PanelBody>
             </InspectorControls>
         </>
