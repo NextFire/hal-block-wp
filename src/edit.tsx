@@ -82,15 +82,17 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
                             onChange={value => setAttributes({ customSortField: value })}
                         ></TextControl>
                     }
-                    <RadioControl
-                        label='Order'
-                        selected={attributes.desc ? 'yes' : 'no'}
-                        options={[
-                            { label: 'Descending', value: 'yes' },
-                            { label: 'Ascending', value: 'no' },
-                        ]}
-                        onChange={value => setAttributes({ desc: value == 'yes' })}
-                    />
+                    {attributes.sortField &&
+                        <RadioControl
+                            label='Order'
+                            selected={attributes.desc ? 'yes' : 'no'}
+                            options={[
+                                { label: 'Descending', value: 'yes' },
+                                { label: 'Ascending', value: 'no' },
+                            ]}
+                            onChange={value => setAttributes({ desc: value == 'yes' })}
+                        />
+                    }
                     <TextControl
                         label='Filter'
                         help='@see https://api.archives-ouvertes.fr/docs/search/?#fq'
