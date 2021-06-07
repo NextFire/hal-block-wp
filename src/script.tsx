@@ -21,10 +21,8 @@ window.onload = () => {
 }
 
 function HALArray({ docs }: { docs: HALResponse[] }) {
-    let rows = [];
-    for (const doc of docs) {
-        rows.push(<DocRow doc={doc}></DocRow>)
-    }
+    let rows: JSX.Element[] = [];
+    docs.forEach(doc => rows.push(<DocRow doc={doc}></DocRow>))
     return (
         <ul>
             {rows}

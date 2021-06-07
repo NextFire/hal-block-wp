@@ -42,8 +42,8 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
         <>
             {/* Block preview */}
             <div {...useBlockProps()}>
-                <em>HAL publications will appear here.</em><br />
-                <a href={queryBuilder(attributes, false)} target='_blank'>Preview results in a new tab.</a>
+                <em>HAL publications will appear here</em><br />
+                <a href={queryBuilder(attributes)} target='_blank'>Preview results in a new tab (JSON)</a>
             </div>
             {/* Block settings */}
             <InspectorControls>

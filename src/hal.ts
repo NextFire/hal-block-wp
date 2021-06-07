@@ -1,7 +1,6 @@
 import { HALBlock } from "./types";
 
 const HAL_API = 'https://api.archives-ouvertes.fr/search/';
-const HAL_WEB = 'https://hal.archives-ouvertes.fr/search/index/';
 
 /**
  * HAL search presets fields.
@@ -47,8 +46,8 @@ export const halDocTypes = {
  * @param api should it returns the url for the api or for the web
  * @returns url of the query
  */
-export function queryBuilder(attributes: HALBlock, api = true) {
-    let url = (api ? HAL_API : HAL_WEB);
+export function queryBuilder(attributes: HALBlock) {
+    let url = HAL_API;
 
     // portal or COLLECTION
     if (attributes.portColl) url += attributes.portColl + '/';
@@ -69,7 +68,7 @@ export function queryBuilder(attributes: HALBlock, api = true) {
     if (!attributes.allDocTypes) url += '&docType_s=' + attributes.docTypes.join(' OR ');
 
     // include all fields in response
-    if (api) url += '&fl=*';
+    url += '&fl=*';
 
     return url;
 }
