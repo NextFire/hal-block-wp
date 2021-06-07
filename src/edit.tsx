@@ -18,7 +18,7 @@ import { CheckboxControl, PanelBody, RadioControl, SelectControl, TextControl } 
 
 import * as React from 'react';
 
-import { HALBlock, halDocTypes, halSearchFields } from './hal';
+import { HALBlock, halDocTypes, halSearchFields, HAL_WEB, queryBuilder } from './hal';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -41,7 +41,8 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
         <>
             {/* Block preview */}
             <div {...useBlockProps()}>
-                <em>HAL publications will appear here.</em>
+                <em>HAL publications will appear here.</em><br />
+                <a href={HAL_WEB + queryBuilder(attributes)} target='_blank'>Preview results in a new tab.</a>
             </div>
             {/* Block settings */}
             <InspectorControls>

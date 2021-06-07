@@ -16,7 +16,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 
 import * as React from 'react';
 
-import { HALBlock } from './hal';
+import { HALBlock, HAL_API, queryBuilder } from './hal';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -29,37 +29,6 @@ import { HALBlock } from './hal';
  */
 export default function save({ attributes }: { attributes: HALBlock }) {
     return (
-        <div {...useBlockProps.save()} url={queryBuilder(attributes)}></div>
+        <div {...useBlockProps.save()} url={HAL_API + queryBuilder(attributes) + '&fl=*'}></div>
     );
-}
-
-////////////////////
-// Query building //
-////////////////////
-
-const API_HAL = 'https://api.archives-ouvertes.fr/search/';
-
-function queryBuilder(attributes: HALBlock) {
-    let url = API_HAL;
-
-    // portal or COLLECTION
-    url += attributes.portColl + '/';
-
-    // Parameters
-    // query
-    url += '?q=' + attributes.q;
-    // sort if not by relevance
-    if (attributes.sortField) url += '&sort='
-        + (attributes.sortField == 'custom' ? attributes.customSortField : attributes.sortField)
-        + ' ' + (attributes.desc ? 'desc' : 'asc');
-    // filters
-    url += '&fq=' + attributes.fq;
-    // number of docs
-    url += '&rows=' + attributes.rows;
-    // doctypes
-    if (!attributes.allDocTypes) url += '&docType_s=' + attributes.docTypes.join(' OR ');
-    // include all fields
-    url += '&fl=*';
-
-    return url;
 }

@@ -34,14 +34,6 @@
             "type": "boolean",
             "default": true
         },
-        "allDocTypes": {
-            "type": "boolean",
-            "default": true
-        },
-        "docTypes": {
-            "type": "array",
-            "default": []
-        },
         "fq": {
             "type": "string",
             "default": ""
@@ -49,6 +41,14 @@
         "rows": {
             "type": "number",
             "default": 30
+        },
+        "allDocTypes": {
+            "type": "boolean",
+            "default": true
+        },
+        "docTypes": {
+            "type": "array",
+            "default": []
         }
     }
 }
