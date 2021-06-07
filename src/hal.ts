@@ -1,7 +1,7 @@
 import { HALBlock } from "./types";
 
-export const HAL_API = 'https://api.archives-ouvertes.fr/search/';
-export const HAL_WEB = 'https://hal.archives-ouvertes.fr/search/index/';
+const HAL_API = 'https://api.archives-ouvertes.fr/search/';
+const HAL_WEB = 'https://hal.archives-ouvertes.fr/search/index/';
 
 /**
  * HAL search presets fields.
@@ -41,13 +41,14 @@ export const halDocTypes = {
 }
 
 /**
- * Builds the url query parameters.
+ * Builds the url of HAL query.
  * 
  * @param attributes from the Gutenberg edit page
- * @returns parameters of the query
+ * @param api should it returns the url for the api or for the web
+ * @returns url of the query
  */
-export function queryBuilder(attributes: HALBlock) {
-    let url = '';
+export function queryBuilder(attributes: HALBlock, api = true) {
+    let url = (api ? HAL_API : HAL_WEB);
 
     // portal or COLLECTION
     if (attributes.portColl) url += attributes.portColl + '/';
@@ -66,6 +67,9 @@ export function queryBuilder(attributes: HALBlock) {
     if (0 < attributes.rows && attributes.rows <= 10000) url += '&rows=' + attributes.rows;
     // doctypes
     if (!attributes.allDocTypes) url += '&docType_s=' + attributes.docTypes.join(' OR ');
+
+    // include all fields in response
+    if (api) url += '&fl=*';
 
     return url;
 }

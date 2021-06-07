@@ -4,7 +4,7 @@ module.exports = {
     ...defaultConfig,
     entry: {
         index: './src/index.ts',
-        script: './src/script.ts',
+        script: './src/script.tsx',
     },
     module: {
         ...defaultConfig.module,

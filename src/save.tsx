@@ -16,7 +16,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 
 import * as React from 'react';
 
-import { HAL_API, queryBuilder } from './hal';
+import { queryBuilder } from './hal';
 import { HALBlock } from './types';
 
 /**
@@ -30,6 +30,6 @@ import { HALBlock } from './types';
  */
 export default function save({ attributes }: { attributes: HALBlock }) {
     return (
-        <div {...useBlockProps.save()} url={HAL_API + queryBuilder(attributes) + '&fl=*'}></div>
+        <div {...useBlockProps.save()} url={queryBuilder(attributes)}></div>
     );
 }
