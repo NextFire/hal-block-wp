@@ -3,5 +3,10 @@
  */
 export interface HALAttributes {
     portColl: string,
-    query: string,
+    q: string,
+    sortField: string;
+    customSortField: string;
+    desc: boolean;
+    fq: string;
+    rows: number;
 }

@@ -33,10 +33,24 @@ export default function save({ attributes }: { attributes: HALAttributes }) {
     );
 }
 
+////////////////////
+// Query building //
+////////////////////
+
 const API_HAL = 'https://api.archives-ouvertes.fr/search/';
 
 function buildQuery(attributes: HALAttributes) {
     let url = API_HAL;
+    // portal or COLLECTION
     url += attributes.portColl + '/';
+    // parameters
+    url += '?q=' + attributes.q;
+    if (attributes.sortField != '') {
+        url += '&sort=' + (attributes.sortField == 'custom' ? attributes.customSortField : attributes.sortField)
+            + ' ' + (attributes.desc ? 'desc' : 'asc');
+    }
+    url += '&fq=' + attributes.fq;
+    url += '&rows=' + attributes.rows;
+    url += '&fl=*';
     return url;
 }

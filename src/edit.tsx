@@ -14,7 +14,7 @@
 // @ts-ignore WP TS types def is broken
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 
-import { PanelBody, TextControl } from '@wordpress/components';
+import { PanelBody, TextControl, SelectControl, RadioControl } from '@wordpress/components';
 
 import * as React from 'react';
 
@@ -41,11 +41,11 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALAtt
         <>
             {/* Block preview */}
             <div {...useBlockProps()}>
-                <em><a href={attributes.query} target="_blank">HAL publications</a> will appear here.</em>
+                <em><a href={attributes.q} target="_blank">HAL publications</a> will appear here.</em>
             </div>
             {/* Block settings */}
             <InspectorControls>
-                <PanelBody title="Filters">
+                <PanelBody title="HAL search">
                     <TextControl
                         label="portal or COLLECTION"
                         help="@see https://api.archives-ouvertes.fr/docs/search/?#endpoints"
@@ -55,8 +55,46 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALAtt
                     <TextControl
                         label="Query"
                         help="@see https://api.archives-ouvertes.fr/docs/search/?#q"
-                        value={attributes.query}
-                        onChange={value => setAttributes({ query: value })}
+                        value={attributes.q}
+                        onChange={value => setAttributes({ q: value })}
+                    ></TextControl>
+                    <SelectControl
+                        label="Sort by"
+                        value={attributes.sortField}
+                        options={[
+                            { value: '', label: 'Relevance' },
+                            { value: 'ePublicationDate_tdate', label: 'ePublication date' },
+                            { value: 'label_s', label: 'Reference' },
+                            { value: 'docid', label: 'ID' },
+                            { value: 'custom', label: 'Custom' },
+                        ]}
+                        onChange={value => setAttributes({ sortField: value })}
+                    />
+                    <TextControl
+                        label="Sort by custom field"
+                        help="@see https://api.archives-ouvertes.fr/docs/search/?schema=fields#fields"
+                        value={attributes.sortField == 'custom' ? attributes.customSortField : ''}
+                        onChange={value => setAttributes({ customSortField: value })}
+                    ></TextControl>
+                    <RadioControl
+                        label="Order"
+                        selected={attributes.desc ? 'yes' : 'no'}
+                        options={[
+                            { label: 'Descending', value: 'yes' },
+                            { label: 'Ascending', value: 'no' },
+                        ]}
+                        onChange={value => setAttributes({ desc: value == 'yes' })}
+                    />
+                    <TextControl
+                        label="Filter"
+                        help="@see https://api.archives-ouvertes.fr/docs/search/?#fq"
+                        value={attributes.fq}
+                        onChange={value => setAttributes({ fq: value })}
+                    ></TextControl>
+                    <TextControl
+                        label="Number of documents"
+                        value={attributes.rows}
+                        onChange={value => setAttributes({ rows: value })}
                     ></TextControl>
                 </PanelBody>
             </InspectorControls>

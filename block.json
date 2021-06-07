@@ -15,10 +15,32 @@
     "style": "file:./build/style-index.css",
     "attributes": {
         "portColl": {
-            "type": "string"
+            "type": "string",
+            "default": ""
         },
-        "query": {
-            "type": "string"
+        "q": {
+            "type": "string",
+            "default": ""
+        },
+        "sortField": {
+            "type": "string",
+            "default": ""
+        },
+        "customSortField": {
+            "type": "string",
+            "default": ""
+        },
+        "desc": {
+            "type": "boolean",
+            "default": "true"
+        },
+        "fq": {
+            "type": "string",
+            "default": ""
+        },
+        "rows": {
+            "type": "number",
+            "default": "30"
         }
     }
 }
