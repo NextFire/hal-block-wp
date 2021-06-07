@@ -1,4 +1,4 @@
-import { HALResponse } from './hal';
+import { HALResponse } from './types';
 
 window.onload = () => {
     document.querySelectorAll('div.wp-block-halb-hal-block').forEach(async block => {

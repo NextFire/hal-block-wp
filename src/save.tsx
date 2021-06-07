@@ -16,7 +16,8 @@ import { useBlockProps } from '@wordpress/block-editor';
 
 import * as React from 'react';
 
-import { HALBlock, HAL_API, queryBuilder } from './hal';
+import { HAL_API, queryBuilder } from './hal';
+import { HALBlock } from './types';
 
 /**
  * The save function defines the way in which the different attributes should

@@ -18,7 +18,8 @@ import { CheckboxControl, PanelBody, RadioControl, SelectControl, TextControl } 
 
 import * as React from 'react';
 
-import { HALBlock, halDocTypes, halSearchFields, HAL_WEB, queryBuilder } from './hal';
+import { halDocTypes, halSearchFields, HAL_WEB, queryBuilder } from './hal';
+import { HALBlock } from './types';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.

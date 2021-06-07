@@ -1,22 +1,7 @@
+import { HALBlock } from "./types";
+
 export const HAL_API = 'https://api.archives-ouvertes.fr/search/';
 export const HAL_WEB = 'https://hal.archives-ouvertes.fr/search/index/';
-
-/**
- * TypeScript type definition for HAL block fields.
- * 
- * @see block.json
- */
-export interface HALBlock {
-    portColl: string,
-    q: string,
-    sortField: string;
-    customSortField: string;
-    desc: boolean;
-    allDocTypes: boolean;
-    docTypes: Array<string>;
-    fq: string;
-    rows: number;
-}
 
 /**
  * HAL search presets fields.
@@ -53,15 +38,6 @@ export const halDocTypes = {
     'SOFTWARE': 'Software',
     'MAP': 'Maps',
     'SON': 'Audio',
-}
-
-/**
- * TypeScript type definition for HAL json response fields.
- */
-export interface HALResponse {
-    docid: number;
-    label_s: string;
-    uri_s: string;
 }
 
 /**
