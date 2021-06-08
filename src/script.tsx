@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { HALResponse } from "./types";
 
-window.onload = () => {
+document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('div.wp-block-halb-hal-block').forEach(async block => {
         try {
             let response = await fetch(block.getAttribute('url'));
@@ -18,24 +18,29 @@ window.onload = () => {
                 </p >, block);
         }
     });
-}
+});
 
 function HALArray({ docs }: { docs: HALResponse[] }) {
     let rows: JSX.Element[] = [];
     docs.forEach(doc => rows.push(<DocRow doc={doc}></DocRow>))
     return (
-        <ul>
+        <table>
+            <tr>
+                <th>Title</th>
+            </tr>
             {rows}
-        </ul>
+        </table>
     );
 }
 
 function DocRow({ doc }: { doc: HALResponse }) {
     return (
-        <li >
-            <a href={doc.uri_s}>
-                {doc.label_s}
-            </a>
-        </li>
+        <tr>
+            <td>
+                <a href={doc.uri_s}>
+                    {doc.label_s}
+                </a>
+            </td>
+        </tr>
     );
 }

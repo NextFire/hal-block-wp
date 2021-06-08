@@ -3,7 +3,7 @@
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
  */
-// import { __ } from '@wordpress/i18n';
+// import { __ } from "@wordpress/i18n";
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -12,14 +12,14 @@
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
 // @ts-ignore WP TS types def is broken
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
 
-import { CheckboxControl, PanelBody, RadioControl, SelectControl, TextControl } from '@wordpress/components';
+import { CheckboxControl, PanelBody, RadioControl, SelectControl, TextControl } from "@wordpress/components";
 
-import * as React from 'react';
+import * as React from "react";
 
-import { halDocTypes, halSearchFields, queryBuilder } from './hal';
-import { HALBlock } from './types';
+import { halDocTypes, halSearchFields, queryBuilder } from "./hal";
+import { HALBlock } from "./types";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -27,7 +27,7 @@ import { HALBlock } from './types';
  *
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
-import './editor.scss';
+import "./editor.scss";
 
 /**
  * The edit function describes the structure of your block in the context of the

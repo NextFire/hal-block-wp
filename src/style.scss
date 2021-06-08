@@ -6,13 +6,16 @@
  */
 
 .wp-block-halb-hal-block {
-    ul {
-        text-align: justify;
-    }
-
-    li {
-        a:link {
-            text-decoration: none;
+    table {
+        border: 1px solid black;
+        th {
+            text-align: center;
+        }
+        td {
+            text-align: justify;
+            a:link {
+                text-decoration: none;
+            }
         }
     }
 
