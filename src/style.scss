@@ -8,8 +8,18 @@
 .wp-block-halb-hal-block {
     table {
         border: 1px solid black;
+        width: 100%;
         th {
             text-align: center;
+            &.authors {
+                width: 25%;
+            }
+            &.title {
+                width: 60%;
+            }
+            &.dateLink {
+                width: 15%;
+            }
         }
         td {
             text-align: justify;

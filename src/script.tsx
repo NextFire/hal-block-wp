@@ -25,10 +25,16 @@ function HALArray({ docs }: { docs: HALResponse[] }) {
     docs.forEach(doc => rows.push(<DocRow doc={doc}></DocRow>))
     return (
         <table>
-            <tr>
-                <th>Title</th>
-            </tr>
-            {rows}
+            <thead>
+                <tr>
+                    <th className='authors'>Authors</th>
+                    <th className='title'>Title</th>
+                    <th className='dateLink'>Submitted date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {rows}
+            </tbody>
         </table>
     );
 }
@@ -37,9 +43,14 @@ function DocRow({ doc }: { doc: HALResponse }) {
     return (
         <tr>
             <td>
-                <a href={doc.uri_s}>
-                    {doc.label_s}
-                </a>
+                {doc.authFullName_s.join(', ')}
+            </td>
+            <td>
+                <a href={doc.uri_s} target='_blank'>{doc.title_s[0]}</a>
+            </td>
+            <td>
+                {doc.submittedDate_tdate.slice(0, 10)} <br />
+                {doc.label_s}
             </td>
         </tr>
     );

@@ -23,4 +23,7 @@ export interface HALResponse {
     docid: number;
     label_s: string;
     uri_s: string;
+    authFullName_s: string[];
+    title_s: string[];
+    submittedDate_tdate: string;
 }
