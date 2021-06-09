@@ -1,6 +1,6 @@
 # hal-block-wp
 
-**HAL Block** is a WordPress plugin that brings [HAL (open archive)](https://hal.archives-ouvertes.fr) integration in any of you page.
+**HAL Block** is a WordPress plugin that brings [HAL (open archive)](https://hal.archives-ouvertes.fr) integration in any of your pages/posts.
 
 It takes the form of a embed block in the Gutemberg editor with multiple settings to fetch and filter the results.
 
@@ -10,7 +10,7 @@ It takes the form of a embed block in the Gutemberg editor with multiple setting
 
 You will need [Node.js and npm](https://nodejs.dev) installed for this step.
 
-Clone the repo and run `npm run build`.
+Clone the repo then `npm install` and `npm run build`.
 
 ### Plugin installation
 
