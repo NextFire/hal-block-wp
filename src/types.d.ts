@@ -5,8 +5,8 @@
  * @see block.json
  */
 export interface HALBlock {
-    portColl: string,
-    q: string,
+    portColl: string;
+    q: string;
     sortField: string;
     customSortField: string;
     desc: boolean;
@@ -14,6 +14,7 @@ export interface HALBlock {
     docTypes: Array<string>;
     fq: string;
     rows: number;
+    customLink: string;
 }
 
 /**

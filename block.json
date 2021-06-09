@@ -49,6 +49,10 @@
         "docTypes": {
             "type": "array",
             "default": []
+        },
+        "customLink": {
+            "type": "string",
+            "default": ""
         }
     }
 }

@@ -46,6 +46,10 @@ export const halDocTypes = {
  * @returns url of the query
  */
 export function queryBuilder(attributes: HALBlock) {
+    if (attributes.customLink) {
+        return attributes.customLink;
+    }
+
     let url = HAL_API;
 
     // portal or COLLECTION

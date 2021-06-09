@@ -140,6 +140,14 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
                         })()
                     }
                 </PanelBody>
+                <PanelBody title='Custom link'>
+                    <TextControl
+                        label='API Link'
+                        help='If you want to use a custom query link'
+                        value={attributes.customLink}
+                        onChange={value => setAttributes({ customLink: value })}
+                    ></TextControl>
+                </PanelBody>
             </InspectorControls>
         </>
     );
