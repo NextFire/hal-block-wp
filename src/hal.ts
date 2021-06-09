@@ -11,7 +11,18 @@ export const halSearchFields = {
     'title_sort': 'Title',
     'producedDate_tdate': 'Produced date',
     'submittedDate_tdate': 'Submitted date',
+    'docType_s': 'Document type',
     'docid': 'ID',
+    'custom': 'Custom',
+}
+
+/**
+ * HAL group presets fields.
+ */
+export const halGroupFields = {
+    '': 'None',
+    'submittedDateY_i': 'Submitted Year',
+    'docType_s': 'Document type',
     'custom': 'Custom',
 }
 

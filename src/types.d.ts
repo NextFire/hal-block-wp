@@ -10,6 +10,8 @@ export interface HALBlock {
     sortField: string;
     customSortField: string;
     desc: boolean;
+    groupBy: string;
+    customGroupBy: string;
     allDocTypes: boolean;
     docTypes: Array<string>;
     fq: string;
@@ -21,6 +23,7 @@ export interface HALBlock {
  * TypeScript type definition for HAL json response fields.
  */
 export interface HALResponse {
+    docType_s: string;
     docid: number;
     label_s: string;
     uri_s: string;

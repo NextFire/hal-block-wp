@@ -34,6 +34,14 @@
             "type": "boolean",
             "default": true
         },
+        "groupBy": {
+            "type": "string",
+            "default": ""
+        },
+        "customGroupBy": {
+            "type": "string",
+            "default": ""
+        },
         "fq": {
             "type": "string",
             "default": ""

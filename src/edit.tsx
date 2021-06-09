@@ -18,7 +18,7 @@ import { CheckboxControl, PanelBody, RadioControl, SelectControl, TextControl } 
 
 import * as React from "react";
 
-import { halDocTypes, halSearchFields, queryBuilder } from "./hal";
+import { halDocTypes, halGroupFields, halSearchFields, queryBuilder } from "./hal";
 import { HALBlock } from "./types";
 
 /**
@@ -95,6 +95,28 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
                             onChange={value => setAttributes({ desc: value == 'yes' })}
                         />
                     }
+                    <SelectControl
+                        label='Group by'
+                        value={attributes.groupBy}
+                        options={
+                            (() => {
+                                let array: { value: string; label: string; }[] = [];
+                                Object.entries(halGroupFields).forEach(([key, desc]: [string, string]) => {
+                                    array.push({ value: key, label: desc });
+                                });
+                                return array;
+                            })()
+                        }
+                        onChange={value => setAttributes({ groupBy: value })}
+                    />
+                    {attributes.groupBy == 'custom' &&
+                        <TextControl
+                            label='Group by custom field'
+                            help='@see https://api.archives-ouvertes.fr/docs/search/?schema=fields#fields'
+                            value={attributes.customGroupBy}
+                            onChange={value => setAttributes({ customGroupBy: value })}
+                        ></TextControl>
+                    }
                     <TextControl
                         label='Filter'
                         help='@see https://api.archives-ouvertes.fr/docs/search/?#fq'
@@ -140,6 +162,7 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
                         })()
                     }
                 </PanelBody>
+                {/* Custom link */}
                 <PanelBody title='Custom link'>
                     <TextControl
                         label='API Link'
