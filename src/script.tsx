@@ -50,7 +50,6 @@ function DocRow({ doc }: { doc: HALResponse }) {
             </td>
             <td>
                 {doc.submittedDate_tdate.slice(0, 10)} <br />
-                {doc.label_s}
             </td>
         </tr>
     );
