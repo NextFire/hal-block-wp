@@ -43,7 +43,6 @@ export const halDocTypes = {
  * Builds the url of HAL query.
  * 
  * @param attributes from the Gutenberg edit page
- * @param api should it returns the url for the api or for the web
  * @returns url of the query
  */
 export function queryBuilder(attributes: HALBlock) {

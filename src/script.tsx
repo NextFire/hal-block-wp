@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             ReactDOM.render(
                 <p className='hal-error'>
-                    An error occured when fetching <br />
+                    An error occured when fetching<br />
                     {block.getAttribute('url')}
                     <br /><br />
                     {error}
