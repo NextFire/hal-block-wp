@@ -13,7 +13,8 @@
     "@wordpress/block-editor": "^6.1.1",
     "@wordpress/blocks": "^9.1.1",
     "@wordpress/components": "^14.1.1",
-    "@wordpress/i18n": "^4.1.1"
+    "@wordpress/i18n": "^4.1.1",
+    "citation-js": "^0.5.1"
   },
   "devDependencies": {
     "@types/wordpress__block-editor": "^2.2.9",

@@ -1,33 +1,27 @@
-
 /**
  * TypeScript type definition for HAL block fields.
  * 
  * @see block.json
  */
 export interface HALBlock {
-    portColl: string;
-    q: string;
-    sortField: string;
+    allDocTypes: boolean;
+    customGroupBy: string;
+    customLink: string;
     customSortField: string;
     desc: boolean;
-    groupBy: string;
-    customGroupBy: string;
-    allDocTypes: boolean;
-    docTypes: Array<string>;
+    docTypes: string[];
     fq: string;
+    groupBy: string;
+    portColl: string;
+    q: string;
     rows: number;
-    customLink: string;
+    sortField: string;
 }
 
 /**
  * TypeScript type definition for HAL json response fields.
  */
 export interface HALResponse {
-    docType_s: string;
-    docid: number;
-    label_s: string;
+    label_bibtex: string;
     uri_s: string;
-    authFullName_s: string[];
-    title_s: string[];
-    submittedDate_tdate: string;
 }

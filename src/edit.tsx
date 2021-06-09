@@ -39,7 +39,7 @@ import "./editor.scss";
  */
 export default function Edit({ attributes, setAttributes }: { attributes: HALBlock; setAttributes: any }) {
     return (
-        <>
+        <div>
             {/* Block preview */}
             <div {...useBlockProps()}>
                 <em>HAL publications will appear here</em><br />
@@ -172,6 +172,6 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
                     ></TextControl>
                 </PanelBody>
             </InspectorControls>
-        </>
+        </div>
     );
 }

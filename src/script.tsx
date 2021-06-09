@@ -1,13 +1,14 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { HALResponse } from "./types";
+const Cite = require('citation-js');
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('div.wp-block-halb-hal-block').forEach(async block => {
         try {
             let response = await fetch(block.getAttribute('url'));
             let data = await response.json();
-            ReactDOM.render(<HALArray docs={data.response.docs} />, block);
+            ReactDOM.render(<HALList docs={data.response.docs} />, block);
         } catch (error) {
             ReactDOM.render(
                 <p className='hal-error'>
@@ -20,37 +21,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function HALArray({ docs }: { docs: HALResponse[] }) {
+function HALList({ docs }: { docs: HALResponse[] }) {
     let rows: JSX.Element[] = [];
-    docs.forEach(doc => rows.push(<DocRow doc={doc}></DocRow>))
+    docs.forEach(doc => rows.push(<DocRow doc={doc}></DocRow>));
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th className='authors'>Authors</th>
-                    <th className='title'>Title</th>
-                    <th className='dateLink'>Submitted date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {rows}
-            </tbody>
-        </table>
+        <ul>
+            {rows}
+        </ul>
     );
 }
 
 function DocRow({ doc }: { doc: HALResponse }) {
+    let cite = new Cite(doc.label_bibtex);
+    let apa = cite.format('bibliography', {
+        format: 'html',
+        template: 'apa',
+        lang: 'en-US'
+    });
     return (
-        <tr>
-            <td>
-                {doc.authFullName_s.join(', ')}
-            </td>
-            <td>
-                <a href={doc.uri_s} target='_blank'>{doc.title_s[0]}</a>
-            </td>
-            <td>
-                {doc.submittedDate_tdate.slice(0, 10)} <br />
-            </td>
-        </tr>
+        <li dangerouslySetInnerHTML={{ __html: apa }}></li>
     );
 }

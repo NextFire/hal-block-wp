@@ -14,15 +14,15 @@
     "editorStyle": "file:./build/index.css",
     "style": "file:./build/style-index.css",
     "attributes": {
-        "portColl": {
+        "allDocTypes": {
+            "type": "boolean",
+            "default": true
+        },
+        "customGroupBy": {
             "type": "string",
             "default": ""
         },
-        "q": {
-            "type": "string",
-            "default": ""
-        },
-        "sortField": {
+        "customLink": {
             "type": "string",
             "default": ""
         },
@@ -34,15 +34,23 @@
             "type": "boolean",
             "default": true
         },
+        "docTypes": {
+            "type": "array",
+            "default": []
+        },
+        "fq": {
+            "type": "string",
+            "default": ""
+        },
         "groupBy": {
             "type": "string",
             "default": ""
         },
-        "customGroupBy": {
+        "portColl": {
             "type": "string",
             "default": ""
         },
-        "fq": {
+        "q": {
             "type": "string",
             "default": ""
         },
@@ -50,15 +58,7 @@
             "type": "number",
             "default": 30
         },
-        "allDocTypes": {
-            "type": "boolean",
-            "default": true
-        },
-        "docTypes": {
-            "type": "array",
-            "default": []
-        },
-        "customLink": {
+        "sortField": {
             "type": "string",
             "default": ""
         }
