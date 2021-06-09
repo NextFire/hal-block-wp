@@ -30,6 +30,6 @@ import { HALBlock } from "./types";
  */
 export default function save({ attributes }: { attributes: HALBlock }) {
     return (
-        <div {...useBlockProps.save()} url={queryBuilder(attributes)}></div>
+        <div {...useBlockProps.save()} url={queryBuilder(attributes)}><em>Loading HAL...</em></div>
     );
 }
