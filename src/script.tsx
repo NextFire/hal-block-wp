@@ -39,6 +39,9 @@ function DocRow({ doc }: { doc: HALResponse }) {
         lang: 'en-US'
     });
     return (
-        <li dangerouslySetInnerHTML={{ __html: apa }}></li>
+        <li>
+            <div dangerouslySetInnerHTML={{ __html: apa }}></div>
+            <a href={doc.uri_s} target='_blank'>[Open in a new tab]</a>
+        </li>
     );
 }
