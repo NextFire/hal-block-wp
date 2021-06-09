@@ -6,13 +6,8 @@
  */
 
 .wp-block-halb-hal-block {
-    table {
-        border: 1px solid black;
-        width: 100%;
-
-        a:link {
-            text-decoration: none;
-        }
+    li {
+        margin: 1em 0;
     }
 
     .hal-error {
