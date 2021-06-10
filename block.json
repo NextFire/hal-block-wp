@@ -35,8 +35,8 @@
             "default": "publicationDateY_i"
         },
         "groupLimit": {
-            "type": "number",
-            "default": 10
+            "type": "string",
+            "default": "10"
         },
         "portColl": {
             "type": "string",

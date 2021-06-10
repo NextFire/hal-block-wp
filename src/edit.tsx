@@ -117,7 +117,6 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
                     }
                     <TextControl
                         label='Max results per group'
-                        type='number'
                         value={attributes.groupLimit}
                         onChange={value => setAttributes({ groupLimit: value })}
                     ></TextControl>

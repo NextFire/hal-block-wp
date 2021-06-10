@@ -9,7 +9,7 @@ export interface HALBlock {
     docTypes: string[];
     fq: string;
     groupField: string;
-    groupLimit: number;
+    groupLimit: string;
     portColl: string;
     q: string;
     sortField: string;
