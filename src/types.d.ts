@@ -5,13 +5,12 @@
  */
 export interface HALBlock {
     allDocTypes: boolean;
-    customGroupBy: string;
     customLink: string;
     customSortField: string;
     desc: boolean;
     docTypes: string[];
     fq: string;
-    groupBy: string;
+    groupField: string;
     portColl: string;
     q: string;
     rows: number;

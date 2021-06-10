@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             let response = await fetch(block.getAttribute('url'));
             let data = await response.json();
-            ReactDOM.render(<HALList docs={data.response.docs} />, block);
+            ReactDOM.render(<HALList docs={data.response.docs} groupField={block.getAttribute('groupField')} />, block);
         } catch (error) {
             ReactDOM.render(
                 <p className='hal-error'>
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function HALList({ docs }: { docs: HALResponse[] }) {
+function HALList({ docs, groupField }: { docs: HALResponse[], groupField: string }) {
     let rows: JSX.Element[] = [];
     docs.forEach(doc => rows.push(<DocRow doc={doc}></DocRow>));
     return (
@@ -32,8 +32,7 @@ function HALList({ docs }: { docs: HALResponse[] }) {
 }
 
 function DocRow({ doc }: { doc: HALResponse }) {
-    let cite = new Cite(doc.label_bibtex);
-    let apa = cite.format('bibliography', {
+    let apa = new Cite(doc.label_bibtex).format('bibliography', {
         format: 'html',
         template: 'apa',
         lang: 'en-US'

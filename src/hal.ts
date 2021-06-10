@@ -9,8 +9,9 @@ export const halSearchFields = {
     '': 'Relevance',
     'auth_sort': 'Author',
     'title_sort': 'Title',
-    'producedDate_tdate': 'Produced date',
     'submittedDate_tdate': 'Submitted date',
+    'publicationDate_tdate': 'Publication date',
+    'producedDate_tdate': 'Produced date',
     'docType_s': 'Document type',
     'docid': 'ID',
     'custom': 'Custom',
@@ -20,10 +21,8 @@ export const halSearchFields = {
  * HAL group presets fields.
  */
 export const halGroupFields = {
-    '': 'None',
-    'submittedDateY_i': 'Submitted Year',
+    'publicationDateY_i': 'Publication year',
     'docType_s': 'Document type',
-    'custom': 'Custom',
 }
 
 /**
@@ -82,7 +81,7 @@ export function queryBuilder(attributes: HALBlock) {
     if (!attributes.allDocTypes) url += '&docType_s=' + attributes.docTypes.join(' OR ');
 
     // include all fields in response
-    url += '&fl=*';
+    url += '&fl=label_bibtex,uri_s';
 
     return url;
 }

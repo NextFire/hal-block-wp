@@ -63,6 +63,20 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
                         onChange={value => setAttributes({ q: value })}
                     ></TextControl>
                     <SelectControl
+                        label='Group by'
+                        value={attributes.groupField}
+                        options={
+                            (() => {
+                                let array: { value: string; label: string; }[] = [];
+                                Object.entries(halGroupFields).forEach(([key, desc]: [string, string]) => {
+                                    array.push({ value: key, label: desc });
+                                });
+                                return array;
+                            })()
+                        }
+                        onChange={value => setAttributes({ groupField: value })}
+                    />
+                    <SelectControl
                         label='Sort by'
                         value={attributes.sortField}
                         options={
@@ -94,28 +108,6 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
                             ]}
                             onChange={value => setAttributes({ desc: value == 'yes' })}
                         />
-                    }
-                    <SelectControl
-                        label='Group by'
-                        value={attributes.groupBy}
-                        options={
-                            (() => {
-                                let array: { value: string; label: string; }[] = [];
-                                Object.entries(halGroupFields).forEach(([key, desc]: [string, string]) => {
-                                    array.push({ value: key, label: desc });
-                                });
-                                return array;
-                            })()
-                        }
-                        onChange={value => setAttributes({ groupBy: value })}
-                    />
-                    {attributes.groupBy == 'custom' &&
-                        <TextControl
-                            label='Group by custom field'
-                            help='@see https://api.archives-ouvertes.fr/docs/search/?schema=fields#fields'
-                            value={attributes.customGroupBy}
-                            onChange={value => setAttributes({ customGroupBy: value })}
-                        ></TextControl>
                     }
                     <TextControl
                         label='Filter'

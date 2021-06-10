@@ -18,10 +18,6 @@
             "type": "boolean",
             "default": true
         },
-        "customGroupBy": {
-            "type": "string",
-            "default": ""
-        },
         "customLink": {
             "type": "string",
             "default": ""
@@ -42,9 +38,9 @@
             "type": "string",
             "default": ""
         },
-        "groupBy": {
+        "groupField": {
             "type": "string",
-            "default": ""
+            "default": "publicationDateY_i"
         },
         "portColl": {
             "type": "string",

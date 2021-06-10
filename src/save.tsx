@@ -32,7 +32,6 @@ export default function save({ attributes }: { attributes: HALBlock }) {
     return (
         <div {...useBlockProps.save()}
             url={queryBuilder(attributes)}
-            groupBy={attributes.customGroupBy ? attributes.customGroupBy : attributes.groupBy}
         ><em>Loading HAL...</em></div>
     );
 }
