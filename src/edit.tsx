@@ -62,6 +62,12 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
                         value={attributes.q}
                         onChange={value => setAttributes({ q: value })}
                     ></TextControl>
+                    <TextControl
+                        label='Filter'
+                        help='@see https://api.archives-ouvertes.fr/docs/search/?#fq'
+                        value={attributes.fq}
+                        onChange={value => setAttributes({ fq: value })}
+                    ></TextControl>
                     <SelectControl
                         label='Group by'
                         value={attributes.groupField}
@@ -110,58 +116,43 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
                         />
                     }
                     <TextControl
-                        label='Filter'
-                        help='@see https://api.archives-ouvertes.fr/docs/search/?#fq'
-                        value={attributes.fq}
-                        onChange={value => setAttributes({ fq: value })}
-                    ></TextControl>
-                    <TextControl
-                        label='Number of documents'
+                        label='Max results per group'
                         type='number'
-                        value={attributes.rows}
-                        onChange={value => setAttributes({ rows: value })}
+                        value={attributes.groupLimit}
+                        onChange={value => setAttributes({ groupLimit: value })}
                     ></TextControl>
                 </PanelBody>
                 {/* Documents */}
                 <PanelBody title='Document types'>
                     <CheckboxControl
                         label='All documents'
-                        checked={attributes.allDocTypes}
-                        onChange={value => setAttributes({ allDocTypes: value })}
+                        checked={attributes.docTypes.length == 0}
+                        onChange={value => {
+                            if (value) setAttributes({ docTypes: [] });
+                        }}
                     ></CheckboxControl>
-                    {!attributes.allDocTypes &&
-                        (() => {
-                            let array: JSX.Element[] = [];
-                            Object.entries(halDocTypes).forEach(([key, desc]: [string, string]) => {
-                                array.push(
-                                    <CheckboxControl
-                                        label={desc}
-                                        checked={attributes.docTypes.includes(key)}
-                                        onChange={checked => {
-                                            let docTypes = attributes.docTypes.slice();
-                                            if (checked) {
-                                                if (!docTypes.includes(key)) {
-                                                    docTypes.push(key);
-                                                }
-                                            } else {
-                                                docTypes = docTypes.filter(value => value != key);
+                    {(() => {
+                        let array: JSX.Element[] = [];
+                        Object.entries(halDocTypes).forEach(([key, desc]: [string, string]) => {
+                            array.push(
+                                <CheckboxControl
+                                    label={desc}
+                                    checked={attributes.docTypes.includes(key)}
+                                    onChange={checked => {
+                                        let docTypes = attributes.docTypes.slice();
+                                        if (checked) {
+                                            if (!docTypes.includes(key)) {
+                                                docTypes.push(key);
                                             }
-                                            setAttributes({ docTypes: docTypes });
-                                        }}
-                                    ></CheckboxControl>);
-                            });
-                            return array;
-                        })()
-                    }
-                </PanelBody>
-                {/* Custom link */}
-                <PanelBody title='Custom link'>
-                    <TextControl
-                        label='API Link'
-                        help='If you want to use a custom query link'
-                        value={attributes.customLink}
-                        onChange={value => setAttributes({ customLink: value })}
-                    ></TextControl>
+                                        } else {
+                                            docTypes = docTypes.filter(value => value != key);
+                                        }
+                                        setAttributes({ docTypes: docTypes });
+                                    }}
+                                ></CheckboxControl>);
+                        });
+                        return array;
+                    })()}
                 </PanelBody>
             </InspectorControls>
         </div>

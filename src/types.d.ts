@@ -4,23 +4,33 @@
  * @see block.json
  */
 export interface HALBlock {
-    allDocTypes: boolean;
-    customLink: string;
     customSortField: string;
     desc: boolean;
     docTypes: string[];
     fq: string;
     groupField: string;
+    groupLimit: number;
     portColl: string;
     q: string;
-    rows: number;
     sortField: string;
 }
 
-/**
- * TypeScript type definition for HAL json response fields.
- */
-export interface HALResponse {
+////////////////////
+// TS def for HAL //
+////////////////////
+export interface HALGroup {
+    groupValue: string;
+    doclist: HALDoclist;
+}
+
+export interface HALDoclist {
+    numFound: number;
+    start: number;
+    docs: HALDoc[];
+}
+
+export interface HALDoc {
+    docType_s: string;
     label_bibtex: string;
     uri_s: string;
 }

@@ -1,14 +1,21 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { HALResponse } from "./types";
+import { halDocTypes } from "./hal";
+import { HALDoc, HALGroup } from "./types";
 const Cite = require('citation-js');
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('div.wp-block-halb-hal-block').forEach(async block => {
         try {
             let response = await fetch(block.getAttribute('url'));
-            let data = await response.json();
-            ReactDOM.render(<HALList docs={data.response.docs} groupField={block.getAttribute('groupField')} />, block);
+            let json = await response.json();
+            let groups = json.grouped[Object.keys(json.grouped)[0]].groups;
+            let docTypes = block.getAttribute('docTypesStr').split(',');
+            ReactDOM.render(
+                <HALDiv
+                    groups={groups}
+                    docTypes={docTypes}
+                />, block);
         } catch (error) {
             ReactDOM.render(
                 <p className='hal-error'>
@@ -21,9 +28,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function HALList({ docs, groupField }: { docs: HALResponse[], groupField: string }) {
+function HALDiv({ groups, docTypes }: { groups: HALGroup[], docTypes: string[] }) {
+    let subdivs: JSX.Element[] = [];
+    groups.forEach(group => {
+        if (/^\d+$/.test(group.groupValue) || docTypes.includes(group.groupValue)) {
+            let groupName;
+            if (docTypes.includes(group.groupValue)) {
+                groupName = halDocTypes[group.groupValue];
+            } else {
+                groupName = group.groupValue;
+            }
+            subdivs.push(
+                <div>
+                    <h2>{groupName}</h2>
+                    <HALList docs={group.doclist.docs} docTypes={docTypes}></HALList>
+                </div>
+            );
+        }
+    })
+    return (
+        <div>
+            {subdivs}
+        </div>
+    );
+}
+
+function HALList({ docs, docTypes }: { docs: HALDoc[], docTypes: string[] }) {
     let rows: JSX.Element[] = [];
-    docs.forEach(doc => rows.push(<DocRow doc={doc}></DocRow>));
+    docs.forEach(doc => {
+        if (docTypes.includes(doc.docType_s)) {
+            rows.push(<DocRow doc={doc}></DocRow>)
+        }
+    });
     return (
         <ul>
             {rows}
@@ -31,7 +67,7 @@ function HALList({ docs, groupField }: { docs: HALResponse[], groupField: string
     );
 }
 
-function DocRow({ doc }: { doc: HALResponse }) {
+function DocRow({ doc }: { doc: HALDoc }) {
     let apa = new Cite(doc.label_bibtex).format('bibliography', {
         format: 'html',
         template: 'apa',

@@ -14,14 +14,6 @@
     "editorStyle": "file:./build/index.css",
     "style": "file:./build/style-index.css",
     "attributes": {
-        "allDocTypes": {
-            "type": "boolean",
-            "default": true
-        },
-        "customLink": {
-            "type": "string",
-            "default": ""
-        },
         "customSortField": {
             "type": "string",
             "default": ""
@@ -42,6 +34,10 @@
             "type": "string",
             "default": "publicationDateY_i"
         },
+        "groupLimit": {
+            "type": "number",
+            "default": 10
+        },
         "portColl": {
             "type": "string",
             "default": ""
@@ -49,10 +45,6 @@
         "q": {
             "type": "string",
             "default": ""
-        },
-        "rows": {
-            "type": "number",
-            "default": 30
         },
         "sortField": {
             "type": "string",
