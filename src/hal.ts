@@ -3,26 +3,26 @@ import { HALBlock } from "./types";
 const HAL_API = 'https://api.archives-ouvertes.fr/search/';
 
 /**
- * HAL search presets fields.
+ * HAL sort presets fields.
  */
-export const halSearchFields: { [key: string]: string } = {
+export const halSortFields: { [key: string]: string } = {
     '': 'Relevance',
-    'auth_sort': 'Author',
-    'title_sort': 'Title',
     'submittedDate_tdate': 'Submitted date',
     'publicationDate_tdate': 'Publication date',
     'producedDate_tdate': 'Produced date',
-    'docType_s': 'Document type',
+    'auth_sort': 'Author',
+    'title_sort': 'Title',
     'docid': 'ID',
-    'custom': 'Custom',
 }
 
 /**
  * HAL group presets fields.
  */
 export const halGroupFields: { [key: string]: string } = {
-    'publicationDateY_i': 'Publication year',
     'docType_s': 'Document type',
+    'submittedDateY_i': 'Submitted year',
+    'publicationDateY_i': 'Publication year',
+    'producedDateY_i': 'Produced year',
 }
 
 /**
@@ -65,16 +65,14 @@ export function queryBuilder(attributes: HALBlock) {
     // filters
     if (attributes.fq) url += '&fq=' + attributes.fq;
 
-    // group
-    url += '&group=true';
-    if (attributes.groupField) url += '&group.field=' + attributes.groupField;
-    url += '&group.limit=' + attributes.groupLimit;
     // sort if not by relevance
     if (attributes.sortField)
-        url += '&sort='
-            + (attributes.sortField == 'custom' ? attributes.customSortField : attributes.sortField)
-            + ' ' + (attributes.desc ? 'desc' : 'asc');
-
+        url += '&sort=' + attributes.sortField + ' ' + (attributes.desc ? 'desc' : 'asc');
+    // then group
+    url += '&group=true';
+    url += '&group.field=' + attributes.groupField;
+    url += '&group.limit=' + attributes.groupLimit;
+    
     // include the essentials fields in response
     url += '&fl=docType_s,label_bibtex,uri_s';
 

@@ -18,7 +18,7 @@ import { CheckboxControl, PanelBody, RadioControl, SelectControl, TextControl } 
 
 import * as React from "react";
 
-import { halDocTypes, halGroupFields, halSearchFields, queryBuilder } from "./hal";
+import { halDocTypes, halGroupFields, halSortFields, queryBuilder } from "./hal";
 import { HALBlock } from "./types";
 
 /**
@@ -69,6 +69,31 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
                         onChange={value => setAttributes({ fq: value })}
                     ></TextControl>
                     <SelectControl
+                        label='Sort by'
+                        value={attributes.sortField}
+                        options={
+                            (() => {
+                                let array: { value: string; label: string; }[] = [];
+                                Object.entries(halSortFields).forEach(([key, desc]: [string, string]) => {
+                                    array.push({ value: key, label: desc });
+                                });
+                                return array;
+                            })()
+                        }
+                        onChange={value => setAttributes({ sortField: value })}
+                    />
+                    {attributes.sortField &&
+                        <RadioControl
+                            label='Sort order'
+                            selected={attributes.desc ? 'yes' : 'no'}
+                            options={[
+                                { label: 'Descending', value: 'yes' },
+                                { label: 'Ascending', value: 'no' },
+                            ]}
+                            onChange={value => setAttributes({ desc: value == 'yes' })}
+                        />
+                    }
+                    <SelectControl
                         label='Group by'
                         value={attributes.groupField}
                         options={
@@ -82,39 +107,6 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
                         }
                         onChange={value => setAttributes({ groupField: value })}
                     />
-                    <SelectControl
-                        label='Sort by'
-                        value={attributes.sortField}
-                        options={
-                            (() => {
-                                let array: { value: string; label: string; }[] = [];
-                                Object.entries(halSearchFields).forEach(([key, desc]: [string, string]) => {
-                                    array.push({ value: key, label: desc });
-                                });
-                                return array;
-                            })()
-                        }
-                        onChange={value => setAttributes({ sortField: value })}
-                    />
-                    {attributes.sortField == 'custom' &&
-                        <TextControl
-                            label='Sort by custom field'
-                            help='@see https://api.archives-ouvertes.fr/docs/search/?schema=fields#fields'
-                            value={attributes.customSortField}
-                            onChange={value => setAttributes({ customSortField: value })}
-                        ></TextControl>
-                    }
-                    {attributes.sortField &&
-                        <RadioControl
-                            label='Order'
-                            selected={attributes.desc ? 'yes' : 'no'}
-                            options={[
-                                { label: 'Descending', value: 'yes' },
-                                { label: 'Ascending', value: 'no' },
-                            ]}
-                            onChange={value => setAttributes({ desc: value == 'yes' })}
-                        />
-                    }
                     <TextControl
                         label='Max results per group'
                         value={attributes.groupLimit}

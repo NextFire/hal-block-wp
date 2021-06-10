@@ -16,7 +16,7 @@ import { useBlockProps } from "@wordpress/block-editor";
 
 import * as React from "react";
 
-import { halDocTypes, queryBuilder } from "./hal";
+import { halDocTypes, halGroupFields, halSortFields, queryBuilder } from "./hal";
 import { HALBlock } from "./types";
 
 /**
@@ -30,9 +30,12 @@ import { HALBlock } from "./types";
  */
 export default function save({ attributes }: { attributes: HALBlock }) {
     return (
-        <div {...useBlockProps.save()}
-            url={queryBuilder(attributes)}
-            docTypesStr={(attributes.docTypes.length == 0 ? Object.keys(halDocTypes) : attributes.docTypes).join()}
-        ><em>Loading HAL...</em></div>
+        <div>
+            <strong>[Grouped by {halGroupFields[attributes.groupField].toLowerCase()} then sorted by {halSortFields[attributes.sortField].toLowerCase()} {attributes.desc ? '↓' : '↑'}]</strong>
+            <div {...useBlockProps.save()}
+                url={queryBuilder(attributes)}
+                docTypesStr={(attributes.docTypes.length == 0 ? Object.keys(halDocTypes) : attributes.docTypes).join()}
+            ><em>Loading HAL...</em></div>
+        </div>
     );
 }

@@ -14,10 +14,6 @@
     "editorStyle": "file:./build/index.css",
     "style": "file:./build/style-index.css",
     "attributes": {
-        "customSortField": {
-            "type": "string",
-            "default": ""
-        },
         "desc": {
             "type": "boolean",
             "default": true
@@ -32,7 +28,7 @@
         },
         "groupField": {
             "type": "string",
-            "default": "publicationDateY_i"
+            "default": "docType_s"
         },
         "groupLimit": {
             "type": "string",

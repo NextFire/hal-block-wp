@@ -4,7 +4,6 @@
  * @see block.json
  */
 export interface HALBlock {
-    customSortField: string;
     desc: boolean;
     docTypes: string[];
     fq: string;
@@ -18,6 +17,7 @@ export interface HALBlock {
 ////////////////////
 // TS def for HAL //
 ////////////////////
+
 export interface HALGroup {
     groupValue: string;
     doclist: HALDoclist;

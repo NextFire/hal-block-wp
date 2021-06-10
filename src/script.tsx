@@ -32,38 +32,40 @@ function HALDiv({ groups, docTypes }: { groups: HALGroup[], docTypes: string[] }
     let subdivs: JSX.Element[] = [];
     groups.forEach(group => {
         if (/^\d+$/.test(group.groupValue) || docTypes.includes(group.groupValue)) {
+            // Friendly name
             let groupName;
             if (docTypes.includes(group.groupValue)) {
                 groupName = halDocTypes[group.groupValue];
             } else {
                 groupName = group.groupValue;
             }
-            subdivs.push(
-                <div>
-                    <h2>{groupName}</h2>
-                    <HALList docs={group.doclist.docs} docTypes={docTypes}></HALList>
-                </div>
-            );
+
+            // Rows
+            let rows: JSX.Element[] = [];
+            group.doclist.docs.forEach(doc => {
+                if (docTypes.includes(doc.docType_s)) {
+                    rows.push(<DocRow doc={doc}></DocRow>)
+                }
+            });
+
+            // Keep group if there is at least one item
+            if (rows.length > 0) {
+                subdivs.push(
+                    <div>
+                        <h2>{groupName}</h2>
+                        <ul>
+                            {rows}
+                        </ul>
+                    </div>
+                );
+            }
         }
     })
+
     return (
         <div>
             {subdivs}
         </div>
-    );
-}
-
-function HALList({ docs, docTypes }: { docs: HALDoc[], docTypes: string[] }) {
-    let rows: JSX.Element[] = [];
-    docs.forEach(doc => {
-        if (docTypes.includes(doc.docType_s)) {
-            rows.push(<DocRow doc={doc}></DocRow>)
-        }
-    });
-    return (
-        <ul>
-            {rows}
-        </ul>
     );
 }
 
