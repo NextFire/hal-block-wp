@@ -3,7 +3,7 @@
  * 
  * @see block.json
  */
-export interface HALBlock {
+export interface HALProps {
     desc: boolean;
     docTypes: string[];
     fq: string;
@@ -11,6 +11,12 @@ export interface HALBlock {
     groupLimit: string;
     portColl: string;
     q: string;
+    sortField: string;
+}
+
+export interface HALState {
+    desc: boolean;
+    groupField: string;
     sortField: string;
 }
 

@@ -1,4 +1,4 @@
-import { HALBlock } from "./types";
+import { HALProps } from "./types";
 
 const HAL_API = 'https://api.archives-ouvertes.fr/search/';
 
@@ -54,7 +54,7 @@ export const halDocTypes: { [key: string]: string } = {
  * @param attributes from the Gutenberg edit page
  * @returns url of the query
  */
-export function queryBuilder(attributes: HALBlock) {
+export function queryBuilder(attributes: HALProps) {
     let url = HAL_API;
 
     // portal or COLLECTION

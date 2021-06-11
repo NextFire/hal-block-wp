@@ -19,7 +19,7 @@ import { CheckboxControl, PanelBody, RadioControl, SelectControl, TextControl } 
 import * as React from "react";
 
 import { halDocTypes, halGroupFields, halSortFields, queryBuilder } from "./hal";
-import { HALBlock } from "./types";
+import { HALProps } from "./types";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -37,7 +37,7 @@ import "./editor.scss";
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit({ attributes, setAttributes }: { attributes: HALBlock; setAttributes: any }) {
+export default function Edit({ attributes, setAttributes }: { attributes: HALProps; setAttributes: any }) {
     return (
         <div>
             {/* Block preview */}
@@ -71,15 +71,13 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
                     <SelectControl
                         label='Sort by'
                         value={attributes.sortField}
-                        options={
-                            (() => {
-                                let array: { value: string; label: string; }[] = [];
-                                Object.entries(halSortFields).forEach(([key, desc]: [string, string]) => {
-                                    array.push({ value: key, label: desc });
-                                });
-                                return array;
-                            })()
-                        }
+                        options={(() => {
+                            let array: { value: string; label: string; }[] = [];
+                            Object.entries(halSortFields).forEach(([key, desc]: [string, string]) => {
+                                array.push({ value: key, label: desc });
+                            });
+                            return array;
+                        })()}
                         onChange={value => setAttributes({ sortField: value })}
                     />
                     {attributes.sortField &&
@@ -96,15 +94,13 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALBlo
                     <SelectControl
                         label='Group by'
                         value={attributes.groupField}
-                        options={
-                            (() => {
-                                let array: { value: string; label: string; }[] = [];
-                                Object.entries(halGroupFields).forEach(([key, desc]: [string, string]) => {
-                                    array.push({ value: key, label: desc });
-                                });
-                                return array;
-                            })()
-                        }
+                        options={(() => {
+                            let array: { value: string; label: string; }[] = [];
+                            Object.entries(halGroupFields).forEach(([key, desc]: [string, string]) => {
+                                array.push({ value: key, label: desc });
+                            });
+                            return array;
+                        })()}
                         onChange={value => setAttributes({ groupField: value })}
                     />
                     <TextControl
