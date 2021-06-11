@@ -51,8 +51,9 @@ function HALHeader({ blockState: parentState, setGroup, setSort, setDesc }:
     { blockState: HALState, setGroup: Function, setSort: Function, setDesc: Function }) {
     return (
         <strong>
-            [Grouped by
-            <select value={parentState.groupField} onChange={event => setGroup(event.target.value)}>
+            Group by <select
+                value={parentState.groupField}
+                onChange={event => setGroup(event.target.value)}>
                 {(() => {
                     let options: JSX.Element[] = [];
                     Object.entries(halGroupFields).forEach(([key, desc]: [string, string]) => {
@@ -60,9 +61,9 @@ function HALHeader({ blockState: parentState, setGroup, setSort, setDesc }:
                     });
                     return options;
                 })()}
-            </select>
-            then sorted by
-            <select value={parentState.sortField} onChange={event => setSort(event.target.value)}>
+            </select> then sort by <select
+                value={parentState.sortField}
+                onChange={event => setSort(event.target.value)}>
                 {(() => {
                     let options: JSX.Element[] = [];
                     Object.entries(halSortFields).forEach(([key, desc]: [string, string]) => {
