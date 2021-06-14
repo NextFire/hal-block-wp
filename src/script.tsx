@@ -98,16 +98,14 @@ class HALDiv extends React.Component<{ blockProps: HALProps, blockState: HALStat
     }
 
     async fetchGroups() {
-        if (!this.state.hasError) {
-            try {
-                let url = queryBuilder({ ...this.props.blockProps, ...this.props.blockState });
-                let response = await fetch(url);
-                let json = await response.json();
-                this.setState({ groups: json.grouped[Object.keys(json.grouped)[0]].groups });
-            } catch (error) {
-                console.log(error);
-                this.setState({ hasError: true });
-            }
+        try {
+            let url = queryBuilder({ ...this.props.blockProps, ...this.props.blockState });
+            let response = await fetch(url);
+            let json = await response.json();
+            this.setState({ groups: json.grouped[Object.keys(json.grouped)[0]].groups });
+        } catch (error) {
+            console.log(error);
+            this.setState({ hasError: true });
         }
     }
 
@@ -115,8 +113,10 @@ class HALDiv extends React.Component<{ blockProps: HALProps, blockState: HALStat
         await this.fetchGroups();
     }
 
-    async componentDidUpdate() {
-        await this.fetchGroups();
+    async componentDidUpdate(prevProps: { blockProps: HALProps, blockState: HALState }) {
+        if (this.props != prevProps && !this.state.hasError) {
+            await this.fetchGroups();
+        }
     }
 
     render() {
