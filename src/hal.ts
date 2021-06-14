@@ -2,33 +2,14 @@ import { HALProps } from "./types";
 
 const HAL_API = 'https://api.archives-ouvertes.fr/search/';
 
-/**
- * HAL sort presets fields.
- */
-export const halSortFields: { [key: string]: string } = {
-    '': 'Relevance',
-    'submittedDate_tdate': 'Submitted date',
-    'publicationDate_tdate': 'Publication date',
-    'producedDate_tdate': 'Produced date',
-    'auth_sort': 'Author',
-    'title_sort': 'Title',
-    'docid': 'ID',
-}
-
-/**
- * HAL group presets fields.
- */
-export const halGroupFields: { [key: string]: string } = {
-    'docType_s': 'Document type',
-    'submittedDateY_i': 'Submitted year',
-    'publicationDateY_i': 'Publication year',
-    'producedDateY_i': 'Produced year',
-}
+/////////////////////////
+// Const for filtering //
+/////////////////////////
 
 /**
  * HAL document types.
  */
-export const halDocTypes: { [key: string]: string } = {
+export const HALDocTypes = {
     'ART': 'Journal articles',
     'COMM': 'Conference papers',
     'COUV': 'Book section',
@@ -46,7 +27,29 @@ export const halDocTypes: { [key: string]: string } = {
     'LECTURE': 'Lectures',
     'MAP': 'Maps',
     'SON': 'Audio',
-}
+} as const;
+
+/**
+ * HAL group presets fields.
+ */
+export const HALGroupFields = {
+    'docType_s': 'Document type',
+    'publicationDateY_i': 'Publication year',
+} as const;
+
+/**
+ * HAL sort presets fields.
+ */
+export const HALSortFields = {
+    '': 'Relevance',
+    'publicationDate_tdate': 'Publication date',
+    'auth_sort': 'Author',
+    'title_sort': 'Title',
+} as const;
+
+////////////////////
+// Query building //
+////////////////////
 
 /**
  * Builds the url of HAL query.
@@ -72,7 +75,7 @@ export function queryBuilder(attributes: HALProps) {
     url += '&group=true';
     url += '&group.field=' + attributes.groupField;
     url += '&group.limit=' + attributes.groupLimit;
-    
+
     // include the essentials fields in response
     url += '&fl=docType_s,label_bibtex,uri_s';
 

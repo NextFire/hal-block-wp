@@ -18,8 +18,8 @@ import { CheckboxControl, PanelBody, RadioControl, SelectControl, TextControl } 
 
 import * as React from "react";
 
-import { halDocTypes, halGroupFields, halSortFields, queryBuilder } from "./hal";
-import { HALProps } from "./types";
+import { HALDocTypes, HALGroupFields, HALSortFields, queryBuilder } from "./hal";
+import { HALDocTypesKeys, HALGroupFieldsKeys, HALProps, HALSortFieldsKeys } from "./types";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -72,9 +72,9 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALPro
                         label='Sort by'
                         value={attributes.sortField}
                         options={(() => {
-                            let array: { value: string; label: string; }[] = [];
-                            Object.entries(halSortFields).forEach(([key, desc]: [string, string]) => {
-                                array.push({ value: key, label: desc });
+                            let array: { value: HALSortFieldsKeys; label: string; }[] = [];
+                            Object.entries(HALSortFields).forEach(([key, desc]) => {
+                                array.push({ value: key as HALSortFieldsKeys, label: desc });
                             });
                             return array;
                         })()}
@@ -95,9 +95,9 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALPro
                         label='Group by'
                         value={attributes.groupField}
                         options={(() => {
-                            let array: { value: string; label: string; }[] = [];
-                            Object.entries(halGroupFields).forEach(([key, desc]: [string, string]) => {
-                                array.push({ value: key, label: desc });
+                            let array: { value: HALGroupFieldsKeys; label: string; }[] = [];
+                            Object.entries(HALGroupFields).forEach(([key, desc]) => {
+                                array.push({ value: key as HALGroupFieldsKeys, label: desc });
                             });
                             return array;
                         })()}
@@ -120,16 +120,16 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALPro
                     ></CheckboxControl>
                     {(() => {
                         let array: JSX.Element[] = [];
-                        Object.entries(halDocTypes).forEach(([key, desc]: [string, string]) => {
+                        Object.entries(HALDocTypes).forEach(([key, desc]) => {
                             array.push(
                                 <CheckboxControl
                                     label={desc}
-                                    checked={attributes.docTypes.includes(key)}
+                                    checked={attributes.docTypes.includes(key as HALDocTypesKeys)}
                                     onChange={checked => {
                                         let docTypes = attributes.docTypes.slice();
                                         if (checked) {
-                                            if (!docTypes.includes(key)) {
-                                                docTypes.push(key);
+                                            if (!docTypes.includes(key as HALDocTypesKeys)) {
+                                                docTypes.push(key as HALDocTypesKeys);
                                             }
                                         } else {
                                             docTypes = docTypes.filter(value => value != key);

@@ -1,3 +1,13 @@
+import { HALDocTypes, HALGroupFields, HALSortFields } from "./hal";
+
+type HALDocTypesKeys = keyof typeof HALDocTypes;
+type HALGroupFieldsKeys = keyof typeof HALGroupFields;
+type HALSortFieldsKeys = keyof typeof HALSortFields;
+
+//////////////////////////////////////
+// TS interfaces for React frontend //
+//////////////////////////////////////
+
 /**
  * TypeScript type definition for HAL block fields.
  * 
@@ -5,38 +15,50 @@
  */
 export interface HALProps {
     desc: boolean;
-    docTypes: string[];
+    docTypes: HALDocTypesKeys[];
     fq: string;
-    groupField: string;
+    groupField: HALGroupFieldsKeys;
     groupLimit: string;
     portColl: string;
     q: string;
-    sortField: string;
+    sortField: HALSortFieldsKeys;
 }
 
+/**
+ * 
+ */
 export interface HALState {
     desc: boolean;
-    groupField: string;
-    sortField: string;
+    groupField: HALGroupFieldsKeys;
+    sortField: HALSortFieldsKeys;
 }
 
-////////////////////
-// TS def for HAL //
-////////////////////
+/////////////////////////////////
+// TS def for HAL API response //
+/////////////////////////////////
 
+/**
+ * 
+ */
 export interface HALGroup {
-    groupValue: string;
+    groupValue: HALDocTypesKeys | number;
     doclist: HALDoclist;
 }
 
+/**
+ * 
+ */
 export interface HALDoclist {
     numFound: number;
     start: number;
     docs: HALDoc[];
 }
 
+/**
+ * 
+ */
 export interface HALDoc {
-    docType_s: string;
+    docType_s: HALDocTypesKeys;
     label_bibtex: string;
     uri_s: string;
 }

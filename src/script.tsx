@@ -1,21 +1,21 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { halDocTypes, halGroupFields, halSortFields, queryBuilder } from "./hal";
-import { HALDoc, HALGroup, HALProps, HALState } from "./types";
+import { HALDocTypes, HALGroupFields, HALSortFields, queryBuilder } from "./hal";
+import { HALDoc, HALDocTypesKeys, HALGroup, HALGroupFieldsKeys, HALProps, HALSortFieldsKeys, HALState } from "./types";
 const Cite = require('citation-js');
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('div.wp-block-halb-hal-block').forEach(block => {
         ReactDOM.render(
             <HALBlock
-                desc={block.getAttribute('desc') == 'desc'}
-                docTypes={block.getAttribute('docTypesStr').split(',')}
+                desc={block.getAttribute('desc') == 'true'}
+                docTypes={block.getAttribute('docTypesStr').split(',') as HALDocTypesKeys[]}
                 fq={block.getAttribute('fq')}
-                groupField={block.getAttribute('groupField')}
+                groupField={block.getAttribute('groupField') as HALGroupFieldsKeys}
                 groupLimit={block.getAttribute('groupLimit')}
                 portColl={block.getAttribute('portColl')}
                 q={block.getAttribute('q')}
-                sortField={block.getAttribute('sortField')}
+                sortField={block.getAttribute('sortField') as HALSortFieldsKeys}
             />, block);
     });
 });
@@ -36,8 +36,8 @@ class HALBlock extends React.Component<HALProps, HALState>  {
             <div>
                 <HALHeader
                     blockState={this.state}
-                    setGroup={(value: string) => this.setState({ groupField: value })}
-                    setSort={(value: string) => this.setState({ sortField: value })}
+                    setGroup={(value: HALGroupFieldsKeys) => this.setState({ groupField: value })}
+                    setSort={(value: HALSortFieldsKeys) => this.setState({ sortField: value })}
                     setDesc={(value: boolean) => this.setState({ desc: value })}
                 ></HALHeader>
                 <HALDiv blockProps={this.props} blockState={this.state}></HALDiv>
@@ -51,30 +51,35 @@ function HALHeader({ blockState: parentState, setGroup, setSort, setDesc }:
     { blockState: HALState, setGroup: Function, setSort: Function, setDesc: Function }) {
     return (
         <strong>
-            Group by <select
-                value={parentState.groupField}
-                onChange={event => setGroup(event.target.value)}>
-                {(() => {
-                    let options: JSX.Element[] = [];
-                    Object.entries(halGroupFields).forEach(([key, desc]: [string, string]) => {
-                        options.push(<option value={key}>{desc.toLowerCase()}</option>);
-                    });
-                    return options;
-                })()}
-            </select> then sort by <select
+            <span>Sort by </span>
+            <select
                 value={parentState.sortField}
                 onChange={event => setSort(event.target.value)}>
                 {(() => {
                     let options: JSX.Element[] = [];
-                    Object.entries(halSortFields).forEach(([key, desc]: [string, string]) => {
+                    Object.entries(HALSortFields).forEach(([key, desc]) => {
                         options.push(<option value={key}>{desc.toLowerCase()}</option>);
                     });
                     return options;
                 })()}
             </select>
-            <select value={parentState.desc ? 'desc' : 'asc'} onChange={event => setDesc(event.target.value == 'desc')}>
-                <option value='desc'>↓</option>
-                <option value='asc'>↑</option>
+            {parentState.sortField != '' &&
+                <select value={parentState.desc ? 'desc' : 'asc'} onChange={event => setDesc(event.target.value == 'desc')}>
+                    <option value='desc'>↓</option>
+                    <option value='asc'>↑</option>
+                </select>
+            }
+            <span> and group by </span>
+            <select
+                value={parentState.groupField}
+                onChange={event => setGroup(event.target.value)}>
+                {(() => {
+                    let options: JSX.Element[] = [];
+                    Object.entries(HALGroupFields).forEach(([key, desc]) => {
+                        options.push(<option value={key}>{desc.toLowerCase()}</option>);
+                    });
+                    return options;
+                })()}
             </select>
         </strong>
     );
@@ -111,7 +116,7 @@ class HALDiv extends React.Component<{ blockProps: HALProps, blockState: HALStat
         let halGroups: JSX.Element[] = [];
         let docTypes = this.props.blockProps.docTypes;
         this.state.groups.forEach(group => {
-            if (/^\d+$/.test(group.groupValue) || docTypes.includes(group.groupValue)) {
+            if (/^\d+$/.test(group.groupValue as string) || docTypes.includes(group.groupValue as HALDocTypesKeys)) {
                 halGroups.push(
                     <HALGroup group={group} docTypes={docTypes}></HALGroup>
                 );
@@ -125,8 +130,9 @@ class HALDiv extends React.Component<{ blockProps: HALProps, blockState: HALStat
 function HALGroup({ group, docTypes }: { group: HALGroup, docTypes: string[] }) {
     // Friendly name
     let groupName;
-    if (docTypes.includes(group.groupValue)) {
-        groupName = halDocTypes[group.groupValue];
+    // if (docTypes.includes(group.groupValue as HALDocTypesKeys)) {
+    if (docTypes.includes(group.groupValue as HALDocTypesKeys)) {
+        groupName = HALDocTypes[group.groupValue as HALDocTypesKeys];
     } else {
         groupName = group.groupValue;
     }

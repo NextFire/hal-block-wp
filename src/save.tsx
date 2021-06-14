@@ -16,7 +16,7 @@ import { useBlockProps } from "@wordpress/block-editor";
 
 import * as React from "react";
 
-import { halDocTypes } from "./hal";
+import { HALDocTypes } from "./hal";
 import { HALProps } from "./types";
 
 /**
@@ -34,7 +34,7 @@ export default function save({ attributes }: { attributes: HALProps }) {
             {...useBlockProps.save()}
             {...attributes}
             desc={attributes.desc ? 'true' : 'false'}
-            docTypesStr={(attributes.docTypes.length == 0 ? Object.keys(halDocTypes) : attributes.docTypes).join()}
+            docTypesStr={(attributes.docTypes.length == 0 ? Object.keys(HALDocTypes) : attributes.docTypes).join()}
         >
             <em>Loading HAL...</em>
         </div>
