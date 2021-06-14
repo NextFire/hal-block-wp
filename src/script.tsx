@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { HALDocTypes, HALGroupFields, HALSortFields, queryBuilder } from "./hal";
 import { HALDoc, HALDocTypesKeys, HALGroup, HALGroupFieldsKeys, HALProps, HALSortFieldsKeys, HALState } from "./types";
+
 const Cite = require('citation-js');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -85,22 +86,28 @@ function HALHeader({ blockState: parentState, setGroup, setSort, setDesc }:
     );
 }
 
-class HALDiv extends React.Component<{ blockProps: HALProps, blockState: HALState }, { groups: HALGroup[] }> {
+class HALDiv extends React.Component<{ blockProps: HALProps, blockState: HALState },
+    { groups: HALGroup[], hasError: boolean }> {
+
+    docTypes: HALDocTypesKeys[];
 
     constructor(props: { blockProps: HALProps, blockState: HALState }) {
         super(props);
-        this.state = { groups: [] };
+        this.state = { groups: [], hasError: false };
+        this.docTypes = this.props.blockProps.docTypes;
     }
 
     async fetchGroups() {
-        let url = queryBuilder({ ...this.props.blockProps, ...this.props.blockState })
-        try {
-            let response = await fetch(url);
-            let json = await response.json();
-            this.setState({ groups: json.grouped[Object.keys(json.grouped)[0]].groups });
-        } catch (error) {
-            console.log(error);
-            this.setState({ groups: [] });
+        if (!this.state.hasError) {
+            try {
+                let url = queryBuilder({ ...this.props.blockProps, ...this.props.blockState });
+                let response = await fetch(url);
+                let json = await response.json();
+                this.setState({ groups: json.grouped[Object.keys(json.grouped)[0]].groups });
+            } catch (error) {
+                console.log(error);
+                this.setState({ hasError: true });
+            }
         }
     }
 
@@ -113,15 +120,15 @@ class HALDiv extends React.Component<{ blockProps: HALProps, blockState: HALStat
     }
 
     render() {
+        if (this.state.hasError) return <p className='hal-error'>Something went wrong.</p >;
         let halGroups: JSX.Element[] = [];
-        let docTypes = this.props.blockProps.docTypes;
         this.state.groups.forEach(group => {
-            if (/^\d+$/.test(group.groupValue as string) || docTypes.includes(group.groupValue as HALDocTypesKeys)) {
+            if (/^\d+$/.test(group.groupValue) || this.docTypes.includes(group.groupValue as HALDocTypesKeys)) {
                 halGroups.push(
-                    <HALGroup group={group} docTypes={docTypes}></HALGroup>
+                    <HALGroup group={group} docTypes={this.docTypes}></HALGroup>
                 );
             }
-        })
+        });
         return halGroups;
     }
 
@@ -130,7 +137,6 @@ class HALDiv extends React.Component<{ blockProps: HALProps, blockState: HALStat
 function HALGroup({ group, docTypes }: { group: HALGroup, docTypes: string[] }) {
     // Friendly name
     let groupName;
-    // if (docTypes.includes(group.groupValue as HALDocTypesKeys)) {
     if (docTypes.includes(group.groupValue as HALDocTypesKeys)) {
         groupName = HALDocTypes[group.groupValue as HALDocTypesKeys];
     } else {
@@ -141,23 +147,22 @@ function HALGroup({ group, docTypes }: { group: HALGroup, docTypes: string[] }) 
     let rows: JSX.Element[] = [];
     group.doclist.docs.forEach(doc => {
         if (docTypes.includes(doc.docType_s)) {
-            rows.push(<DocRow doc={doc}></DocRow>)
+            rows.push(<DocRow doc={doc}></DocRow>);
         }
     });
 
     // Keep group if there is at least one item
-    if (rows.length > 0) {
-        return (
-            <div>
-                <h2>{groupName}</h2>
-                <ul>
-                    {rows}
-                </ul>
-            </div>
-        );
-    } else {
+    if (rows.length == 0) {
         return <div></div>;
     }
+    return (
+        <div>
+            <h2>{groupName}</h2>
+            <ul>
+                {rows}
+            </ul>
+        </div>
+    );
 }
 
 function DocRow({ doc }: { doc: HALDoc }) {

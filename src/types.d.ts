@@ -41,7 +41,7 @@ export interface HALState {
  * 
  */
 export interface HALGroup {
-    groupValue: HALDocTypesKeys | number;
+    groupValue: HALDocTypesKeys | string;
     doclist: HALDoclist;
 }
 

@@ -69,8 +69,7 @@ export function queryBuilder(attributes: HALProps) {
     if (attributes.fq) url += '&fq=' + attributes.fq;
 
     // sort if not by relevance
-    if (attributes.sortField)
-        url += '&sort=' + attributes.sortField + ' ' + (attributes.desc ? 'desc' : 'asc');
+    if (attributes.sortField) url += '&sort=' + attributes.sortField + ' ' + (attributes.desc ? 'desc' : 'asc');
     // then group
     url += '&group=true';
     url += '&group.field=' + attributes.groupField;
