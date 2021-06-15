@@ -80,17 +80,15 @@ export default function Edit({ attributes, setAttributes }: { attributes: HALPro
                         })()}
                         onChange={value => setAttributes({ sortField: value })}
                     />
-                    {attributes.sortField &&
-                        <RadioControl
-                            label='Sort order'
-                            selected={attributes.desc ? 'yes' : 'no'}
-                            options={[
-                                { label: 'Descending', value: 'yes' },
-                                { label: 'Ascending', value: 'no' },
-                            ]}
-                            onChange={value => setAttributes({ desc: value == 'yes' })}
-                        />
-                    }
+                    <RadioControl
+                        label='Sort order'
+                        selected={attributes.desc ? 'yes' : 'no'}
+                        options={[
+                            { label: 'Descending', value: 'yes' },
+                            { label: 'Ascending', value: 'no' },
+                        ]}
+                        onChange={value => setAttributes({ desc: value == 'yes' })}
+                    />
                     <SelectControl
                         label='Group by'
                         value={attributes.groupField}

@@ -41,7 +41,6 @@ export const HALGroupFields = {
  * HAL sort presets fields.
  */
 export const HALSortFields = {
-    '': 'Relevance',
     'publicationDate_tdate': 'Publication date',
     'auth_sort': 'Author',
     'title_sort': 'Title',

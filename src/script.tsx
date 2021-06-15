@@ -64,12 +64,10 @@ function HALHeader({ blockState: parentState, setGroup, setSort, setDesc }:
                     return options;
                 })()}
             </select>
-            {parentState.sortField != '' &&
-                <select value={parentState.desc ? 'desc' : 'asc'} onChange={event => setDesc(event.target.value == 'desc')}>
-                    <option value='desc'>↓</option>
-                    <option value='asc'>↑</option>
-                </select>
-            }
+            <select value={parentState.desc ? 'desc' : 'asc'} onChange={event => setDesc(event.target.value == 'desc')}>
+                <option value='desc'>↓</option>
+                <option value='asc'>↑</option>
+            </select>
             <span> and group by </span>
             <select
                 value={parentState.groupField}
@@ -157,7 +155,7 @@ function HALGroup({ group, docTypes }: { group: HALGroup, docTypes: string[] }) 
     }
     return (
         <div>
-            <h2>{groupName}</h2>
+            <h3>{groupName}</h3>
             <ul>
                 {rows}
             </ul>

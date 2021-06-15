@@ -44,7 +44,7 @@
         },
         "sortField": {
             "type": "string",
-            "default": ""
+            "default": "publicationDate_tdate"
         }
     }
 }
