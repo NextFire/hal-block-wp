@@ -34,7 +34,7 @@ class HALBlock extends React.Component<HALProps, HALState>  {
 
     render() {
         return (
-            <div>
+            <>
                 <HALHeader
                     blockState={this.state}
                     setGroup={(value: HALGroupFieldsKeys) => this.setState({ groupField: value })}
@@ -42,19 +42,19 @@ class HALBlock extends React.Component<HALProps, HALState>  {
                     setDesc={(value: boolean) => this.setState({ desc: value })}
                 ></HALHeader>
                 <HALDiv blockProps={this.props} blockState={this.state}></HALDiv>
-            </div>
+            </>
         );
     }
 
 }
 
-function HALHeader({ blockState: parentState, setGroup, setSort, setDesc }:
+function HALHeader({ blockState, setGroup, setSort, setDesc }:
     { blockState: HALState, setGroup: Function, setSort: Function, setDesc: Function }) {
     return (
         <strong>
             <span>Sort by </span>
             <select
-                value={parentState.sortField}
+                value={blockState.sortField}
                 onChange={event => setSort(event.target.value)}>
                 {(() => {
                     let options: JSX.Element[] = [];
@@ -64,13 +64,13 @@ function HALHeader({ blockState: parentState, setGroup, setSort, setDesc }:
                     return options;
                 })()}
             </select>
-            <select value={parentState.desc ? 'desc' : 'asc'} onChange={event => setDesc(event.target.value == 'desc')}>
+            <select value={blockState.desc ? 'desc' : 'asc'} onChange={event => setDesc(event.target.value == 'desc')}>
                 <option value='desc'>↓</option>
                 <option value='asc'>↑</option>
             </select>
             <span> and group by </span>
             <select
-                value={parentState.groupField}
+                value={blockState.groupField}
                 onChange={event => setGroup(event.target.value)}>
                 {(() => {
                     let options: JSX.Element[] = [];
