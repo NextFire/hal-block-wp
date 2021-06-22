@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import * as ReactDOM from "react-dom";
 import { HALDocTypes, HALGroupFields, HALSortFields, queryBuilder } from "./hal";
 import { HALDoc, HALDocTypesKeys, HALGroup, HALGroupFieldsKeys, HALProps, HALSortFieldsKeys, HALState } from "./types";
@@ -21,31 +22,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-class HALBlock extends React.Component<HALProps, HALState>  {
+function HALBlock(props: HALProps) {
+    const [desc, setDesc] = useState(props.desc);
+    const [groupField, setGroupField] = useState(props.groupField);
+    const [sortField, setSortField] = useState(props.sortField);
 
-    constructor(props: HALProps) {
-        super(props);
-        this.state = {
-            desc: props.desc,
-            groupField: props.groupField,
-            sortField: props.sortField,
-        }
-    }
-
-    render() {
-        return (
-            <>
-                <HALHeader
-                    blockState={this.state}
-                    setGroup={(value: HALGroupFieldsKeys) => this.setState({ groupField: value })}
-                    setSort={(value: HALSortFieldsKeys) => this.setState({ sortField: value })}
-                    setDesc={(value: boolean) => this.setState({ desc: value })}
-                ></HALHeader>
-                <HALDiv blockProps={this.props} blockState={this.state}></HALDiv>
-            </>
-        );
-    }
-
+    return (
+        <>
+            <HALHeader
+                blockState={{ desc, groupField, sortField }}
+                setGroup={setGroupField}
+                setSort={setSortField}
+                setDesc={setDesc}
+            ></HALHeader>
+            <HALDiv blockProps={props} blockState={{ desc, groupField, sortField }}></HALDiv>
+        </>
+    );
 }
 
 function HALHeader({ blockState, setGroup, setSort, setDesc }:
@@ -84,52 +76,42 @@ function HALHeader({ blockState, setGroup, setSort, setDesc }:
     );
 }
 
-class HALDiv extends React.Component<{ blockProps: HALProps, blockState: HALState },
-    { groups: HALGroup[], hasError: boolean }> {
+function HALDiv(props: { blockProps: HALProps, blockState: HALState }) {
+    const [groups, setGroups] = useState<HALGroup[]>([]);
+    const [hasError, setHasError] = useState<boolean>(false);
+    const docTypes = props.blockProps.docTypes;
 
-    docTypes: HALDocTypesKeys[];
-
-    constructor(props: { blockProps: HALProps, blockState: HALState }) {
-        super(props);
-        this.state = { groups: [], hasError: false };
-        this.docTypes = this.props.blockProps.docTypes;
-    }
-
-    async fetchGroups() {
+    async function fetchGroups() {
         try {
-            let url = queryBuilder({ ...this.props.blockProps, ...this.props.blockState });
+            let url = queryBuilder({ ...props.blockProps, ...props.blockState });
             let response = await fetch(url);
             let json = await response.json();
-            this.setState({ groups: json.grouped[Object.keys(json.grouped)[0]].groups });
+            setGroups(json.grouped[Object.keys(json.grouped)[0]].groups);
         } catch (error) {
             console.log(error);
-            this.setState({ hasError: true });
+            setHasError(true);
         }
     }
 
-    async componentDidMount() {
-        await this.fetchGroups();
+    useEffect(() => { if (!hasError) fetchGroups(); }, [props])
+
+    if (hasError) {
+        return <p className='hal-error'>Something went wrong.</p >;
     }
 
-    async componentDidUpdate(prevProps: { blockProps: HALProps, blockState: HALState }) {
-        if (this.props != prevProps && !this.state.hasError) {
-            await this.fetchGroups();
+    let halGroups: JSX.Element[] = [];
+    groups.forEach(group => {
+        if (/^\d+$/.test(group.groupValue) || docTypes.includes(group.groupValue as HALDocTypesKeys)) {
+            halGroups.push(
+                <HALGroup group={group} docTypes={docTypes}></HALGroup>
+            );
         }
-    }
-
-    render() {
-        if (this.state.hasError) return <p className='hal-error'>Something went wrong.</p >;
-        let halGroups: JSX.Element[] = [];
-        this.state.groups.forEach(group => {
-            if (/^\d+$/.test(group.groupValue) || this.docTypes.includes(group.groupValue as HALDocTypesKeys)) {
-                halGroups.push(
-                    <HALGroup group={group} docTypes={this.docTypes}></HALGroup>
-                );
-            }
-        });
-        return halGroups;
-    }
-
+    });
+    return (
+        <>
+            {halGroups}
+        </>
+    );
 }
 
 function HALGroup({ group, docTypes }: { group: HALGroup, docTypes: string[] }) {
@@ -169,6 +151,7 @@ function DocRow({ doc }: { doc: HALDoc }) {
         template: 'apa',
         lang: 'en-US'
     });
+
     return (
         <li>
             <div dangerouslySetInnerHTML={{ __html: apa }}></div>
