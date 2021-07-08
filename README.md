@@ -16,4 +16,4 @@ You will need [Node.js and npm](https://nodejs.dev) installed for this step.
 
 Clone the repo then `npm install` and `npm run build`.
 
-Then, simply put the folder in `<your wp install>/wp-content/plugins/` and activate the plugin in your dashboard.
+Then, simply put the whole folder (or keep at least `block.json`, `hal-block.php` and the `build` folder) in `<your wp install>/wp-content/plugins/` and activate the plugin in your dashboard.
